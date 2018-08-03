@@ -311,7 +311,15 @@ async def fcdr():
 client.loop.create_task(fcdr())
 
 ''' COMMANDS FOR EVERYONE '''
+# }help
 client.remove_command('help')
+@client.command(pass_context=True)
+async def help(ctx):
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.add_field(name=":incoming_envelope: ", value="You can see all commands in the <#442267483672674314> channel!")
+    msg.set_footer(text=footer_text)
+    await client.say(embed=msg)
 
 # v!work
 @client.command(pass_context=True)
@@ -376,8 +384,8 @@ async def steal(ctx, user: discord.Member = None):
             msg.add_field(name=error_img, value="Please mention the user you want to steal from.")
         elif user.id == author.id:
             msg.add_field(name=error_img, value="You can't steal from yourself.")
-        elif user.bot and user.id != '463669094399344641':
-            msg.add_field(name=error_img, value="You can't steal from any bots except from <@463669094399344641>.")
+        elif user.bot and user.id != '440770699259281408':
+            msg.add_field(name=error_img, value="You can't steal from any bots except from <@440770699259281408>.")
         else:
             chnl = client.get_channel(users_chnl)
             m = random.randint(250, 500)
