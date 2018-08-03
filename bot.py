@@ -993,5 +993,67 @@ async def convert(ctx):
     msg.set_thumbnail(url=convert_img)
     msg.add_field(name="`=================================`", value=m)
     await client.say(embed=msg)
+
+# }money <add/del/set> <user> <amount>
+@client.command(pass_context=True)
+async def money(ctx, option = None, user: discord.Member = None, amount = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
+    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    await client.send_typing(ctx.message.channel)
+    if owner in author.roles or manager in author.roles:
+        if option == None or user == None or amount == None:
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}money add @Bob 127`.\n`}money del @Bob 127`.\n`}money set @Bob 127`.")
+        else:
+            if option == "add" or option == "del" or option == "set":
+                try:
+                    o = []
+                    k = int(amount)
+                    async for i in client.logs_from(chnl, limit=1000000000000):
+                        a = str(i.content)
+                        if user.id in a:
+                            b = i.content.split(' | ')
+                            if option == "add":
+                                bal = int(b[1])
+                                money = bal + int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":zap: ", value="<@{}> added `{}` coins to <@{}>'s balance.".format(author.id, amount, user.id))
+                                o.append("+1")
+                                break
+                            elif option == "del":
+                                bal = int(b[1])
+                                money = bal - int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":zap: ", value="<@{}> removed `{}` coins from <@{}>'s balance.".format(author.id, amount, user.id))
+                                o.append("+1")
+                                break
+                            elif option == "set":
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, amount, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":zap: ", value="<@{}> set <@{}>'s balance to `{}` coins.".format(author.id, user.id, amount))
+                                o.append("+1")
+                                break
+                            else:
+                                msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
+                                o.append("+1")
+                                break
+                        else:
+                            print("[MONEY] Pass 1")
+                    if len(o) == 0:
+                        msg.add_field(name=error_img, value="That user is not registered in the system.")
+                    else:
+                        print("[MONEY] Pass 2")
+                except:
+                    msg.add_field(name=error_img, value="The amount must be a number.")
+            else:
+                msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
+    else:
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Admins.")
 ##################################
 client.run(os.environ['BOT_TOKEN'])
