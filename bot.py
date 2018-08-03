@@ -313,7 +313,7 @@ client.loop.create_task(fcdr())
 ''' COMMANDS FOR EVERYONE '''
 client.remove_command('help')
 
-# }work
+# v!work
 @client.command(pass_context=True)
 async def work(ctx):
     author = ctx.message.author
@@ -356,11 +356,11 @@ async def work(ctx):
         worked.append(author.id)
     await client.say(embed=msg)
          
-# }steal <user>
+# v!steal <user>
 @client.command(pass_context=True)
 async def steal(ctx, user: discord.Member = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -437,6 +437,82 @@ async def steal(ctx, user: discord.Member = None):
             else:
                 print("[STEAL] Pass 2")
             stole.append(author.id)
+    await client.say(embed=msg)
+
+# }hack <number from 1 to 20>
+@client.command(pass_context=True)
+async def hack(ctx, number = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    if author.id in hacking_tools:
+        if author.id in hacked:
+            m = 60 - len(wsm)
+            msg.add_field(name=error_img, value="You need some rest. Try again in: {} minute(s).".format(m))
+        elif number == None:
+            msg.add_field(name=error_img, value="Please give a number from 1 to 20. The higher the number, the more money you can get or lose.")
+        else:
+            try:
+                t = int(number)
+                if t <= 0 or t >= 21:
+                    msg.add_field(name=error_img, value="The number has to be between 1 and 20.")
+                else:
+                    chnl = client.get_channel(users_chnl)
+                    p = random.randint(1, 100)
+                    n = random.randint(1000, 3000)
+                    money = t * n
+                    ms = "```diff"
+                    ms += "\n--- Starting hacks... ---"
+                    ms += "\n###############################"
+                    ms += "\n--- Attempting to hack: {} companies".format(number)
+                    ms += "\n--- Random multiplier: {}".format(n)
+                    ms += "\n###############################"
+                    ms += "\n```"
+                    win = "```diff"
+                    win += "\n+ HACKING FINISHED +"
+                    win += "\n###############################"
+                    win += "\n--- Money made: {}".format(money)
+                    win += "\n--- Finished at: {}%".format(p)
+                    win += "\n###############################"
+                    win += "\n```"
+                    lose = "```diff"
+                    lose += "\n- HACKING FAILED -"
+                    lose += "\n###############################"
+                    lose += "\n--- Money lost: {}".format(money)
+                    lose += "\n--- Failed at: {}%".format(p)
+                    lose += "\n###############################"
+                    lose += "\n```"
+                    o = []
+                    async for i in client.logs_from(chnl, limit=1000000000000):
+                        a = str(i.content)
+                        if author.id in a:
+                            b = i.content.split(' | ')
+                            if p >= 40:
+                                k = int(b[1]) - money
+                                msg.set_thumbnail(url=hack_img)
+                                msg.add_field(name=":computer: ", value="{}\n{}".format(ms, lose))
+                                msg.add_field(name=":computer: ", value="<@{}> tried to hack {} companies but failed and had to pay `{}` coins.\nNew balance: `{}` coins.".format(author.id, number, money, k))
+                            else:
+                                k = int(b[1]) + money
+                                msg.set_thumbnail(url=hack_img)
+                                msg.add_field(name=":computer: ", value="{}\n{}".format(ms, win))
+                                msg.add_field(name=":computer: ", value="<@{}> hacked {} companies and stole `{}` coins.\nNew balance: `{}` coins.".format(author.id, number, money, k))
+                            await client.edit_message(i, "{} | {} | **{}**".format(author.id, k, author.name))
+                            o.append("+1")
+                            break
+                        else:
+                            print("[HACK] Pass 1")
+                    if len(o) == 0:
+                        await client.send_message(chnl, "{} | {} | **{}**".format(author.id, k, author.name))
+                    else:
+                        print("[HACK] Pass 2")
+                    hacked.append(author.id)
+            except:
+                msg.add_field(name=error_img, value="That is not a number.")
+    else:
+        msg.add_field(name=error_img, value="You need the hacking tool to hack.")
     await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
