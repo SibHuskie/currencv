@@ -807,7 +807,7 @@ async def buy(ctx, *, item = None):
 
 # }gift <user> <amount>
 @client.command(pass_context=True)
-async def gift(ctx, user: discord.Member = None, amount = None):
+async def pay(ctx, user: discord.Member = None, amount = None):
     author = ctx.message.author
     msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
