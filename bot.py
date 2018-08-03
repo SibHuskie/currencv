@@ -594,5 +594,33 @@ async def slots(ctx, amount = None):
             print("[SLOTS] Pass 2")
     await client.say(embed=msg)
 
+# }bal [user]
+@client.command(pass_context=True)
+async def bal(ctx, user: discord.Member = None):
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    o = []
+    await client.send_typing(ctx.message.channel)
+    if user == None:
+        author = ctx.message.author
+    else:
+        author = user
+    async for i in client.logs_from(chnl, limit=1000000000000):
+        a = str(i.content)
+        if author.id in a:
+            b = i.content.split(' | ')
+            bal = int(b[1])
+            o.append("+1")
+            break
+        else:
+            print("[BAL] Pass 1")
+    msg.set_thumbnail(url=bal_img)
+    if len(o) != 0:
+        msg.add_field(name=":money:", value="<@{}>'s balance is: `{}` coins.".format(author.id, bal))
+    else:
+        msg.add_field(name=":money:", value="<@{}>'s balance is: `0` coins.".format(author.id))
+    await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
