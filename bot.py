@@ -622,5 +622,59 @@ async def bal(ctx, user: discord.Member = None):
     else:
         msg.add_field(name=":moneybag:", value="<@{}>'s balance is: `0` coins.".format(author.id))
     await client.say(embed=msg)
+         
+# }shop
+@client.command(pass_context=True)
+async def shop(ctx):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    msg2 = discord.Embed(colour=0xFFB900, description= "")
+    msg2.title = ""
+    msg2.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    m1 = "<:xcshop:464776106453762050> *Shop*"
+    m1 += "\n`=================================`"
+    m1 += "\n:diamond_shape_with_a_dot_inside: Clock **__~~=~~__** 25000 coins **__~~=~~__** Sets working and stealing cool down to 1 hour instead of 4 hours."
+    m2 = ":diamond_shape_with_a_dot_inside: Degree **__~~=~~__** 15000 coins **__~~=~~__** Doubles work money."
+    m3 = ":diamond_shape_with_a_dot_inside: Incognito **__~~=~~__** 15000 coins **__~~=~~__** Doubles steal money."
+    m4 = ":diamond_shape_with_a_dot_inside: Security **__~~=~~__** 10000 coins **__~~=~~__** Everyone gets a 50/50 chance of actually stealing from you."
+    m5 = ":diamond_shape_with_a_dot_inside: Double Security **__~~=~~__** 20000 coins **__~~=~~__** If someone doesn't manage to steal from you, they automatically pay you the money they tried to steal."
+    m6 = ":diamond_shape_with_a_dot_inside: Bank Account **__~~=~~__** 60000 coins **__~~=~~__** "
+    m6 += "\nWithout Elite/Royal role you get +3 coins for every message you convert."
+    m6 += "\nWith Elite role you get +4 coins for every message you convert."
+    m6 += "\nWith Royal role you get +5 coins for every message you convert."
+    m7 = " :diamond_shape_with_a_dot_inside: Credit Card **__~~=~~__** 30000 coins **__~~=~~__**"
+    m7 += "\nWithout Elite/Royal role you get +2 coins for every message you convert."
+    m7 += "\nWith Elites role you get +3 coins for every message you convert."
+    m7 += "\nWith Royals role you get +4 coins for every message you convert."
+    m8 = ":diamond_shape_with_a_dot_inside: Hacking Tool **__~~=~~__** 50000 coins **__~~=~~__** Allows you to hack every hour. This is a way to get a lot of money, but it has 40 win / 60 lose chance."
+    m9 = ":diamond_shape_with_a_dot_inside: Lucky Charm **__~~=~~__** 25000 coins **__~~=~~__** Gives you 60 win / 40 lose chance on slots."
+    m10 = ":diamond_shape_with_a_dot_inside: Booster **__~~=~~__** 100000 coins **__~~=~~__** Lets you double half of your money daily."
+    m11 = ":diamond_shape_with_a_dot_inside: Elites role **__~~=~~__** 135000 coins **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
+    m12 = ":diamond_shape_with_a_dot_inside: Royals role **__~~=~~__** 300000 coins **__~~=~~__** Gives you the Royals role. This role is only for legendary people."
+    m13 = ":diamond_shape_with_a_dot_inside: Partnering Badge **__~~=~~__** 15000 coins **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
+    m14 = ":diamond_shape_with_a_dot_inside: Join Counter **__~~=~~__** 10000 coins **__~~=~~__** Gives you 50-100 coins every time someone joins."
+    msg.add_field(name="`=================================`", value=m1)
+    msg.add_field(name="`=================================`", value=m2)
+    msg.add_field(name="`=================================`", value=m3)
+    msg.add_field(name="`=================================`", value=m4)
+    msg.add_field(name="`=================================`", value=m5)
+    msg.add_field(name="`=================================`", value=m6)
+    msg.add_field(name="`=================================`", value=m7)
+    msg.add_field(name="`=================================`", value=m8)
+    msg.add_field(name="`=================================`", value=m9)
+    msg.add_field(name="`=================================`", value=m10)
+    msg.add_field(name="`=================================`", value=m11)
+    msg.add_field(name="`=================================`", value=m12)
+    msg.add_field(name="`=================================`", value=m13)
+    msg.add_field(name="`=================================`", value=m14)
+    try:
+        await client.send_message(author, embed=msg)
+        msg2.add_field(name=":diamond_shape_with_a_dot_inside:", value="Check your DMs, <@{}>.".format(author.id))
+    except:
+        msg2.add_field(name=error_img, value="I am unable to DM you, <@{}>.".format(author.id))
+    await client.say(embed=msg2)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
