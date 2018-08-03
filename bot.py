@@ -296,5 +296,59 @@ async def wsreset():
 
 client.loop.create_task(wsreset())
 
+# FISH COOLDOWN
+async def fcdr():
+    await client.wait_until_ready()
+    while not client.is_closed:
+        fcd.clear()
+        await asyncio.sleep(8)
+
+client.loop.create_task(fcdr())
+
+''' COMMANDS FOR EVERYONE '''
+client.remove_command('help')
+
+# }work
+@client.command(pass_context=True)
+async def work(ctx):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    if author.id in worked:
+        m = 60 - len(wsm)
+        if author.id in clocks:
+            msg.add_field(name=error_img, value="You need some rest. Try again in {} minute(s).".format(m))
+        else:
+            h = 3 - len(wsh)
+            msg.add_field(name=error_img, value="You need some rest. Try again in {} hour(s) and {} minute(s).".format(h, m))
+    else:
+        chnl = client.get_channel(users_chnl)
+        m = random.randint(75, 300)
+        if author.id in degrees:
+            money = m * 2
+        else:
+            money = m
+        o = []
+        async for i in client.logs_from(chnl, limit=1000000000000):
+            a = str(i.content)
+            if author.id in a:
+                b = i.content.split(' | ')
+                k = int(b[1]) + money
+                await client.edit_message(i, "{} | {} | **{}**".format(author.id, k, author.name))
+                o.append("+1")
+                break
+            else:
+                print("[WORK] Pass 1")
+        if len(o) == 0:
+            k = money
+            await client.send_message(chnl, "{} | {} | **{}**".format(author.id, k, author.name))
+        else:
+            print("[WORK] Pass 2")
+        msg.set_thumbnail(url=work_img)
+        msg.add_field(name=":moneybag: ", value="<@{}> worked for a few hours and gained `{}` coins.\nNew balance: `{}` coins.".format(author.id, money, k))
+        worked.append(author.id)
+    await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
