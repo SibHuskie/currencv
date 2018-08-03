@@ -514,5 +514,85 @@ async def hack(ctx, number = None):
     else:
         msg.add_field(name=error_img, value="You need the hacking tool to hack.")
     await client.say(embed=msg)
+         
+# }slots <amount>
+@client.command(pass_context=True)
+async def slots(ctx, amount = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    if amount == None:
+        msg.add_field(name=error_img, value="Please put how much coins you want to gamble.")
+    else:
+        chnl = client.get_channel(users_chnl)
+        o = []
+        p = []
+        async for i in client.logs_from(chnl, limit=1000000000000):
+            a = str(i.content)
+            if author.id in a:
+                b = i.content.split(' | ')
+                bal = int(b[1])
+                o.append(i)
+                break
+            else:
+                print("[SLOTS] Pass 1")
+        if len(o) != 0:
+            if amount == "all":
+                bet = bal
+                if bet <= 0:
+                    msg.add_field(name=error_img, value="The amount cannot be 0 or a negative number.")
+                else:
+                    p.append("+1")
+            elif amount == "half":
+                c = bal / 2
+                bet = int(c)
+                if bet <= 0:
+                    msg.add_field(name=error_img, value="The amount cannot be 0 or a negative number.")
+                else:
+                    p.append("+1")
+            else:
+                try:
+                    k = int(amount)
+                    if k <= 0:
+                        msg.add_field(name=error_img, value="The amount cannot be 0 or a negative number.")
+                    elif k > bal:
+                        msg.add_field(name=error_img, value="You do not have enough coins.")
+                    else:
+                        bet = k
+                        p.append("+1")
+                except:
+                    msg.add_field(name=error_img, value="The amount can be `all` to gamble all the coins you have, `half` to gamble half of the coins you have or a number to gamble as much coins as you want.")
+        else:
+            msg.add_field(name=error_img, value="Your balance was not found. You either haven't talked in the main-chat or there was an error in the database.")
+        if len(p) != 0:
+            per = random.randint(1, 10)
+            if author.id in lucky_charms:
+                if per > 4:
+                    money = bet + bal
+                    await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
+                    msg.set_thumbnail(url=slots2_img)
+                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and won `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                else:
+                    money = bal - bet
+                    await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
+                    msg.set_thumbnail(url=slots1_img)
+                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and lost `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+            else:
+                if per >= 5:
+                    money = bet + bal
+                    await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
+                    msg.set_thumbnail(url=slots2_img)
+                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and won `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                else:
+                    money = bal - bet
+                    await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
+                    msg.set_thumbnail(url=slots1_img)
+                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and lost `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+        else:
+            print("[SLOTS] Pass 2")
+    await client.say(embed=msg)
+
 ##################################
 client.run(os.environ['BOT_TOKEN'])
