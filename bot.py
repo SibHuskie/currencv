@@ -627,10 +627,10 @@ async def bal(ctx, user: discord.Member = None):
 @client.command(pass_context=True)
 async def shop(ctx):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
-    msg2 = discord.Embed(colour=0xFFB900, description= "")
+    msg2 = discord.Embed(colour=0x3a5bd1, description= "")
     msg2.title = ""
     msg2.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -676,5 +676,133 @@ async def shop(ctx):
     except:
         msg2.add_field(name=error_img, value="I am unable to DM you, <@{}>.".format(author.id))
     await client.say(embed=msg2)
+         
+# }buy <perk>
+@client.command(pass_context=True)
+async def buy(ctx, *, item = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    if item == None:
+        msg.add_field(name=error_img, value="No perk specified.\nExamples:\n`v!buy clock`.\n`v!buy credit card`.")
+    elif item not in items:
+        msg.add_field(name=error_img, value="Invalid perk. Make sure you spelled it correctly and with all lower case letters.")
+    else:
+        vip = discord.utils.get(ctx.message.server.roles, id=vip_role)
+        legend = discord.utils.get(ctx.message.server.roles, id=legend_role)
+        chnl = client.get_channel(users_chnl)
+        o = []
+        async for i in client.logs_from(chnl, limit=1000000000000):
+            a = str(i.content)
+            if author.id in a:
+                b = i.content.split(' | ')
+                bal = b[1]
+                o.append("+1")
+                break
+            else:
+                print("[BUY] Pass 1")
+        if len(o) == 0:
+            msg.add_field(name=error_img, value="You do not have enough coins.")
+        else:
+            if item == "vip role":
+                if vip in author.roles:
+                    msg.add_field(name=error_img, value="You already have this perk.")
+                else:
+                    if int(bal) >= 135000:
+                        async for i in client.logs_from(chnl, limit=1000000000000):
+                            a = str(i.content)
+                            if author.id in a:
+                                b = i.content.split(' | ')
+                                money = int(bal) - 135000
+                                await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                                break
+                            else:
+                                print("[BUY] Pass 2")
+                        await client.add_roles(author, vip)
+                        msg.set_thumbnail(url=shop_img)
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought Elites role for `135000` coins.\nNew balance: `{}` coins.".format(author.id, money))
+                    else:
+                        msg.add_field(name=error_img, value="You do not have enough coins.")
+            elif item == "legend role":
+                if legend in author.roles:
+                    msg.add_field(name=error_img, value="You already have this perk.")
+                else:
+                    if int(bal) >= 300000:
+                        async for i in client.logs_from(chnl, limit=1000000000000):
+                            a = str(i.content)
+                            if author.id in a:
+                                b = i.content.split(' | ')
+                                money = int(bal) - 300000
+                                await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                                break
+                            else:
+                                print("[BUY] Pass 3")
+                        await client.add_roles(author, legend)
+                        msg.set_thumbnail(url=shop_img)
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought Royals role for `300000` coins.\nNew balance: `{}` coins.".format(author.id, money))
+                    else:
+                        msg.add_field(name=error_img, value="You do not have enough coins.")
+            else:
+                pcheck = {"clock" : clocks,
+                          "degree" : degrees,
+                          "incognito" : incognitos,
+                          "credit card" : credit_cards,
+                          "bank account" : bank_accounts,
+                          "security" : securities,
+                          "double security" : double_securities,
+                          "hacking tool" : hacking_tools,
+                          "partnering badge" : partnering_badges,
+                          "join counter" : join_counters,
+                          "booster" : boosters,
+                          "lucky charm" : lucky_charms}
+                plook = {"clock" : ":diamond_shape_with_a_dot_inside: Clock",
+                         "degree" : ":diamond_shape_with_a_dot_inside: Degree",
+                         "incognito" : ":diamond_shape_with_a_dot_inside: Incognito",
+                         "credit card" : ":diamond_shape_with_a_dot_inside: Credit Card",
+                         "bank account" : ":diamond_shape_with_a_dot_inside: Bank Account",
+                         "security" : ":diamond_shape_with_a_dot_inside: Security",
+                         "double security" : ":diamond_shape_with_a_dot_inside: Double Security",
+                         "hacking tool" : ":diamond_shape_with_a_dot_inside: Hacking Tool",
+                         "partnering badge" : ":diamond_shape_with_a_dot_inside: Partnering Badge",
+                         "join counter" : ":diamond_shape_with_a_dot_inside: Join Counter",
+                         "booster" : ":diamond_shape_with_a_dot_inside: Booster",
+                         "lucky charm" : ":diamond_shape_with_a_dot_inside: Lucky Charm"}
+                pchnl = {"clock" : clocks_chnl,
+                         "degree" : degrees_chnl,
+                         "incognito" : incognitos_chnl,
+                         "credit card" : credit_cards_chnl,
+                         "bank account" : bank_accounts_chnl,
+                         "security" : securities_chnl,
+                         "double security" : double_securities_chnl,
+                         "hacking tool" : hacking_tools_chnl,
+                         "partnering badge" : partnering_badges_chnl,
+                         "join counter" : join_counters_chnl,
+                         "booster" : boosters_chnl,
+                         "lucky charm" : lucky_charms_chnl}
+                if author.id in pcheck["{}".format(item)]:
+                    msg.add_field(name=error_img, value="You already have this perk.")
+                else:
+                    cost1 = perks["{}".format(item)]
+                    cost = int(cost1)
+                    if int(bal) >= cost:
+                        async for i in client.logs_from(chnl, limit=1000000000000):
+                            a = str(i.content)
+                            if author.id in a:
+                                b = i.content.split(' | ')
+                                money = int(bal) - cost
+                                await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                                break
+                            else:
+                                print("[BUY] Pass 4")
+                        l = pcheck["{}".format(item)]
+                        l.append(author.id)
+                        await client.send_message(client.get_channel(pchnl["{}".format(item)]), "{}".format(author.id))
+                        msg.set_thumbnail(url=shop_img)
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside: ", value="<@{}> successfully bought {} for `{}` coins.\nNew balance: `{}` coins.".format(author.id, plook["{}".format(item)], cost, money))
+                    else:
+                        msg.add_field(name=error_img, value="You do not have enough coins.")
+    await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
