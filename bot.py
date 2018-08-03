@@ -618,9 +618,9 @@ async def bal(ctx, user: discord.Member = None):
             print("[BAL] Pass 1")
     msg.set_thumbnail(url=bal_img)
     if len(o) != 0:
-        msg.add_field(name=":money:", value="<@{}>'s balance is: `{}` coins.".format(author.id, bal))
+        msg.add_field(name=":moneybag:", value="<@{}>'s balance is: `{}` coins.".format(author.id, bal))
     else:
-        msg.add_field(name=":money:", value="<@{}>'s balance is: `0` coins.".format(author.id))
+        msg.add_field(name=":moneybag:", value="<@{}>'s balance is: `0` coins.".format(author.id))
     await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
