@@ -82,7 +82,6 @@ stole = []
 hacked = []
 boosted = []
 degrees = []
-incognitos = []
 lucky_charms = []
 bank_accounts = []
 credit_cards = []
@@ -93,3 +92,170 @@ double_securities = []
 hacking_tools = []
 partnering_badges = []
 join_counters = []
+
+# EVENT - TELLS YOU WHEN THE BOT TURNS ON
+@client.event
+async def on_ready():
+    t1 = time.perf_counter()
+    server = client.get_server('426680388002250753')
+    dc = client.get_channel(degrees_chnl)
+    ic = client.get_channel(incognitos_chnl)
+    bac = client.get_channel(bank_accounts_chnl)
+    ccc = client.get_channel(credit_cards_chnl)
+    lcc = client.get_channel(lucky_charms_chnl)
+    bc = client.get_channel(boosters_chnl)
+    uc = client.get_channel(users_chnl)
+    cc = client.get_channel(clocks_chnl)
+    sc = client.get_channel(securities_chnl)
+    dsc = client.get_channel(double_securities_chnl)
+    htc = client.get_channel(hacking_tools_chnl)
+    pbc = client.get_channel(partnering_badges_chnl)
+    jcc = client.get_channel(join_counters_chnl)
+    print("[START UP] Starting...")
+    async for i in client.logs_from(dc, limit=1000000000000):
+        degrees.append(i.content)
+        print("[START UP] Degrees added: {} - {}".format(len(degrees), i.content))
+    async for i in client.logs_from(bac, limit=1000000000000):
+        bank_accounts.append(i.content)
+        print("[START UP] Bank accounts added: {} - {}".format(len(bank_accounts), i.content))
+    async for i in client.logs_from(ccc, limit=1000000000000):
+        credit_cards.append(i.content)
+        print("[START UP] Credit cards added: {} - {}".format(len(credit_cards), i.content))
+    async for i in client.logs_from(lcc, limit=1000000000000):
+        lucky_charms.append(i.content)
+        print("[START UP] Lucky charms added: {} - {}".format(len(lucky_charms), i.content))
+    async for i in client.logs_from(bc, limit=1000000000000):
+        boosters.append(i.content)
+        print("[START UP] Boosters added: {} - {}".format(len(boosters), i.content))
+    async for i in client.logs_from(cc, limit=1000000000000):
+        clocks.append(i.content)
+        print("[START UP] Clocks added: {} - {}".format(len(clocks), i.content))
+    async for i in client.logs_from(sc, limit=1000000000000):
+        securities.append(i.content)
+        print("[START UP] Securities added: {} - {}".format(len(securities), i.content))
+    async for i in client.logs_from(dsc, limit=1000000000000):
+        double_securities.append(i.content)
+        print("[START UP] Double securities added: {} - {}".format(len(double_securities), i.content))
+    async for i in client.logs_from(htc, limit=1000000000000):
+        hacking_tools.append(i.content)
+        print("[START UP] Hacking tools added: {} - {}".format(len(hacking_tools), i.content))
+    async for i in client.logs_from(pbc, limit=1000000000000):
+        partnering_badges.append(i.content)
+        print("[START UP] Partnering badges added: {} - {}".format(len(partnering_badges), i.content))
+    async for i in client.logs_from(jcc, limit=1000000000000):
+        join_counters.append(i.content)
+        print("[START UP] Join counters added: {} - {}".format(len(join_counters), i.content))
+    async for i in client.logs_from(uc, limit=1000000000000):
+        a = i.content.split(' | ')
+        users.append(a[0])
+        print("[START UP] Users added: {} - {}".format(len(users), a[0]))
+    print("[START UP] Finishing...")
+    print("============================================================")
+    print("Viola")
+    print("============================================================")
+    print("Name: {}".format(client.user.name))
+    print("ID: {}".format(client.user.id))
+    print("============================================================")
+    await client.change_presence(game=discord.Game(name="on Violets"))
+    await client.wait_until_ready()
+    t2 = time.perf_counter()
+    print("Ping: {}".format(round((t2-t1)*1000)))
+    print("============================================================")
+
+# JOIN SYSTEM
+@client.event
+async def on_member_join(userName: discord.User):
+    c = random.randint(50, 100)
+    b = []
+    for i in join_counters:
+        for msg in joins:
+            a = str(msg)
+            if i in a:
+                joins.remove(msg)
+                p = msg.split(' | ')
+                k = p[0]
+                m = int(k) + c
+                b.append("+1")
+                joins.append("{} | {}".format(m, i))
+                print("[JOIN SYSTEM] {} ### +{} coins - {}".format(i, c, m))
+                break
+            else:
+                print("[JOIN SYSTEM] Pass")
+        if len(b) == 0:
+            m = c
+            joins.append("{} | {}".format(m, i))
+            b.append("+1")
+            print("[JOIN SYSTEM] {} ### +{} coins - {}".format(i, c, m))
+        else:
+            print("[JOIN SYSTEM] Pass")
+                  
+# MESSAGE SYSTEM
+@client.event
+async def on_message(i):
+    s = client.get_server('426680388002250753')
+    author = i.author
+    chnl = client.get_channel(users_chnl)
+    if i.channel.id == default_chnl or i.channel.id == partners_chnl:
+        if author.bot:
+            await client.process_commands(i)
+            print("[MESSAGE SYSTEM] Bot pass")
+        elif author.id in users:
+            if i.channel.id == default_chnl:
+                messages.append(author.id)
+                await client.process_commands(i)
+                print("[MESSAGE SYSTEM] <default channel> {} - {}".format(author, author.id))
+            elif i.channel.id == partners_chnl:
+                if author.id in partnering_badges:
+                    c = random.randint(100, 300)
+                    b = []
+                    for msg in con_partners:
+                        a = str(msg)
+                        if author.id in a:
+                            con_partners.remove(msg)
+                            p = msg.split(' | ')
+                            k = p[0]
+                            m = int(k) + c
+                            con_partners.append("{} | {}".format(m, author.id))
+                            b.append("+1")
+                            print("[MESSAGE SYSTEM] <partners channel> {} - {} ### +{} coins - {}".format(author, author.id, c, m))
+                            break
+                        else:
+                            await client.process_commands(i)
+                            print("[MESSAGE SYSTEM] Con-partners pass")
+                    if len(b) == 0:
+                        m = c
+                        con_partners.append("{} | {}".format(m, author.id))
+                        b.append("+1")
+                        print("[MESSAGE SYSTEM] <partners channel> {} - {} ### +{} coins - {}".format(author, author.id, m, m))
+                    else:
+                        print("[MESSAGE SYSTEM] Partnering channel pass")
+                else:
+                    await client.process_commands(i)
+                    print("[MESSAGE SYSTEM] Partnering pass")
+            else:
+                await client.process_commands(i)
+                print("[MESSAGE SYSTEM] Channel pass")
+        else:
+            p = []
+            async for i in client.logs_from(chnl, limit=1000000000000):
+                a = str(i.content)
+                if author.id in a:
+                    p.append("+1")
+                    break
+                else:
+                    print("")
+            if len(p) == 0:
+                await client.send_message(chnl, "{} | 1 | **{}**".format(author.id, author.name))
+                users.append(author.id)
+                print("[MESSAGE SYSTEM] New user: {} ### {}".format(author.name, author.id))
+            else:
+                print("[MESSAGE SYSTEM]")
+    else:
+        await client.process_commands(i)
+        print("[MESSAGE SYSTEM] Global pass")
+
+wsm = []
+wsh = []
+
+##################################
+client.run(os.environ['BOT_TOKEN'])
