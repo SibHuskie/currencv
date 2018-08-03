@@ -804,5 +804,71 @@ async def buy(ctx, *, item = None):
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
     await client.say(embed=msg)
+
+# }gift <user> <amount>
+@client.command(pass_context=True)
+async def gift(ctx, user: discord.Member = None, amount = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    await client.send_typing(ctx.message.channel)
+    if user == None or amount == None:
+        msg.add_field(name=error_img, value="Not all arguments were given!\nExample: `v!gift @Huskie 4325`.")
+    elif user.bot and user.id != '474827867264516107':
+        msg.add_field(name=error_img, value="You can't give coins to any bot except me.")
+    elif user.id == author.id:
+        msg.add_field(name=error_img, value="You can't give coins to yourself.")
+    else:
+        try:
+            k = int(amount)
+            if k <= 0:
+                msg.add_field(name=error_img, value="The amount must be 1 or higher.")
+            else:
+                o = []
+                async for i in client.logs_from(chnl, limit=1000000000000):
+                    a = str(i.content)
+                    if user.id in a:
+                        o.append("+1")
+                    else:
+                        print("")
+                if len(o) != 0:
+                    p = []
+                    async for i in client.logs_from(chnl, limit=1000000000000):
+                        a = str(i.content)
+                        if author.id in a:
+                            b = i.content.split(' | ')
+                            bal = int(b[1])
+                            if bal < int(amount):
+                                msg.add_field(name=error_img, value="You do not have enough coins.")
+                                break
+                            else:
+                                money = bal - int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                                p.append("+1")
+                                msg.set_thumbnail(url=gift_img)
+                                msg.add_field(name=":money_with_wings: ", value="<@{}> gave <@{}> `{}` coins.\nNew balance: `{}`.".format(author.id, user.id, amount, money))
+                                break
+                        else:
+                            print("")
+                    if len(p) != 0:
+                        async for i in client.logs_from(chnl, limit=1000000000000):
+                            a = str(i.content)
+                            if user.id in a:
+                                b = i.content.split(' | ')
+                                bal = int(b[1])
+                                money = bal + int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
+                                break
+                            else:
+                                print("")
+                    else:
+                        print("")
+                else:
+                    msg.add_field(name=error_img, value="The mentioned user didn't accept your gift.")
+        except:
+            msg.add_field(name=error_img, value="The amount has to be a number.")
+    await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
