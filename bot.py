@@ -257,5 +257,44 @@ async def on_message(i):
 wsm = []
 wsh = []
 
+# WORK/STEAL/HACK RESET
+async def wsreset():
+    await client.wait_until_ready()
+    while not client.is_closed:
+        if len(wsm) == 60:
+            wsm.clear()
+            wsh.append("+1")
+            for i in worked:
+                if i in clocks:
+                    worked.remove(i)
+                    print("[W/S/H R] Cleared worked")
+                else:
+                    print("[W/S/H R] Pass 1")
+            for i in stole:
+                if i in clocks:
+                    stole.remove(i)
+                    print("[W/S/H R] Cleared stole")
+                else:
+                    print("[W/S/H R] Pass 2")
+            hacked.clear()
+            print("[W/S/H R] Cleared hacked")
+        else:
+            wsm.append("+1")
+        if len(wsh) == 4:
+            worked.clear()
+            stole.clear()
+            hacked.clear()
+            wsh.clear()
+            print("[W/S/H R] Cleared all")
+        else:
+            print("[W/S/H R] Pass 3")
+        print("[W/S/H R] {}h {}m +".format(len(wsh), len(wsm)))
+        h = 3 - len(wsh)
+        m = 60 - len(wsm)
+        print("[W/S/H R] {}h {}m -".format(h, m))
+        await asyncio.sleep(60)
+
+client.loop.create_task(wsreset())
+
 ##################################
 client.run(os.environ['BOT_TOKEN'])
