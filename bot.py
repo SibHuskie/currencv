@@ -57,12 +57,13 @@ hack_img = 'https://i.imgur.com/L2zf68E.png'
 fish_img = 'https://i.imgur.com/ngAJpQU.png'
 convert_img = 'https://i.imgur.com/h5tTzFU.png'
 
-items = ["clock", "credit card", "bank account", "elites role", "royals role", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
+items = ["clock", "credit card", "bank account", "vip role", "legend role", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
 perks = {"clock" : "25000",
          "credit card" : "30000",
          "bank account" : "60000",
-         "elites role" : "135000",
-         "royals role" : "300000",
+         "vip role" : "135000",
+         "legend role" : "300000",
+         "incognito" : "15000",
          "degree" : "15000",
          "lucky charm" : "25000",
          "partnering badge" : "15000",
@@ -92,12 +93,13 @@ double_securities = []
 hacking_tools = []
 partnering_badges = []
 join_counters = []
+incognitos = []
 
 # EVENT - TELLS YOU WHEN THE BOT TURNS ON
 @client.event
 async def on_ready():
     t1 = time.perf_counter()
-    server = client.get_server('426680388002250753')
+    server = client.get_server('463671677658726412')
     dc = client.get_channel(degrees_chnl)
     ic = client.get_channel(incognitos_chnl)
     bac = client.get_channel(bank_accounts_chnl)
@@ -115,6 +117,9 @@ async def on_ready():
     async for i in client.logs_from(dc, limit=1000000000000):
         degrees.append(i.content)
         print("[START UP] Degrees added: {} - {}".format(len(degrees), i.content))
+    async for i in client.logs_from(ic, limit=1000000000000):
+        incognitos.append(i.content)
+        print("[START UP] Incognitos added: {} - {}".format(len(incognitos), i.content))
     async for i in client.logs_from(bac, limit=1000000000000):
         bank_accounts.append(i.content)
         print("[START UP] Bank accounts added: {} - {}".format(len(bank_accounts), i.content))
@@ -349,6 +354,89 @@ async def work(ctx):
         msg.set_thumbnail(url=work_img)
         msg.add_field(name=":moneybag: ", value="<@{}> worked for a few hours and gained `{}` coins.\nNew balance: `{}` coins.".format(author.id, money, k))
         worked.append(author.id)
+    await client.say(embed=msg)
+         
+# }steal <user>
+@client.command(pass_context=True)
+async def steal(ctx, user: discord.Member = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    await client.send_typing(ctx.message.channel)
+    if author.id in stole:
+        m = 60 - len(wsm)
+        if author.id in clocks:
+            msg.add_field(name=error_img, value="You need some rest. Try again in {} minute(s).".format(m))
+        else:
+            h = 3 - len(wsh)
+            msg.add_field(name=error_img, value="You need some rest. Try again in {} hour(s) and {} minute(s).".format(h, m))
+    else:
+        if user == None:
+            msg.add_field(name=error_img, value="Please mention the user you want to steal from.")
+        elif user.id == author.id:
+            msg.add_field(name=error_img, value="You can't steal from yourself.")
+        elif user.bot and user.id != '463669094399344641':
+            msg.add_field(name=error_img, value="You can't steal from any bots except from <@463669094399344641>.")
+        else:
+            chnl = client.get_channel(users_chnl)
+            m = random.randint(250, 500)
+            if author.id in incognitos:
+                money = m * 2
+            else:
+                money = m
+            o = []
+            o2 = []
+            p = random.randint(0, 1)
+            async for i in client.logs_from(chnl, limit=1000000000000):
+                a = str(i.content)
+                if len(o) == 0 or len(o2) == 0:
+                    if author.id in a:
+                        b = i.content.split(' | ')
+                        if user.id in securities:
+                            if p == 0:
+                                k = int(b[1]) + money
+                                msg.set_thumbnail(url=steal2_img)
+                                msg.add_field(name=":moneybag:", value="<@{}> stole `{}` coins from <@{}>.\nNew balance: `{}` coins.".format(author.id, money, user.id, k))
+                            else:
+                                if user.id in double_securities:
+                                    k = int(b[1]) - m
+                                    msg.set_thumbnail(url=steal1_img)
+                                    msg.add_field(name=":moneybag: ", value="<@{}> tried to steal from <@{}> but they were caught and paid `{}` coins to <@{}>.\nNew balance: `{}` coins.".format(author.id, user.id, m, user.id, k))
+                                else:
+                                    k = int(b[1])
+                                    msg.set_thumbnail(url=steal1_img)
+                                    msg.add_field(name=":moneybag: ", value="<@{}> tried to steal from <@{}> but they were caught.\nNew balance: `{}` coins.".format(author.id, user.id, k))
+                        else:
+                            k = int(b[1]) + money
+                            msg.set_thumbnail(url=steal2_img)
+                            msg.add_field(name=":moneybag: ", value="<@{}> stole `{}` coins from <@{}>.\nNew balance: `{}` coins.".format(author.id, money, user.id, k))
+                        await client.edit_message(i, "{} | {} | **{}**".format(author.id, k, author.name))
+                        o.append("+1")
+                    elif user.id in a:
+                        b = i.content.split(' | ')
+                        if user.id in securities:
+                            if p == 0:
+                                k = int(b[1]) - money
+                            else:
+                                if user.id in double_securities:
+                                    k = int(b[1]) + m
+                                else:
+                                    k = int(b[1])
+                        else:
+                            k = int(b[1]) - money
+                        await client.edit_message(i, "{} | {} | **{}**".format(user.id, k, user.name))
+                        o2.append("+1")
+                    else:
+                        print("[STEAL] Pass 1")
+                else:
+                    break
+            if len(o) == 0 or len(o2) == 0:
+                msg.set_thumbnail(url=steal1_img)
+                msg.add_field(name=":moneybag: ", value="<@{}> managed to get away and <@{}> couldn't steal anything from them.".format(user.id, author.id))
+            else:
+                print("[STEAL] Pass 2")
+            stole.append(author.id)
     await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
