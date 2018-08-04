@@ -883,7 +883,7 @@ async def pay(ctx, user: discord.Member = None, amount = None):
 @client.command(pass_context=True)
 async def convert(ctx):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
@@ -998,16 +998,16 @@ async def convert(ctx):
 @client.command(pass_context=True)
 async def money(ctx, option = None, user: discord.Member = None, amount = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
-    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
-    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
     await client.send_typing(ctx.message.channel)
     if owner in author.roles or manager in author.roles:
         if option == None or user == None or amount == None:
-            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}money add @Bob 127`.\n`}money del @Bob 127`.\n`}money set @Bob 127`.")
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`v!money add @Huskie 127`.\n`v!money del @Seven~ 127`.\n`v!money set @Yami 127`.")
         else:
             if option == "add" or option == "del" or option == "set":
                 try:
@@ -1054,6 +1054,6 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
             else:
                 msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
     else:
-        msg.add_field(name=error_img, value="This command can only be used by Owners and Admins.")
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
 ##################################
 client.run(os.environ['BOT_TOKEN'])
