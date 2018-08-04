@@ -998,16 +998,16 @@ async def convert(ctx):
 @client.command(pass_context=True)
 async def money(ctx, option = None, user: discord.Member = None, amount = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x3a5bd1, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
-    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
-    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
     await client.send_typing(ctx.message.channel)
     if owner in author.roles or manager in author.roles:
         if option == None or user == None or amount == None:
-            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}money add @Bob 127`.\n`}money del @Bob 127`.\n`}money set @Bob 127`.")
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`v!money add @Huskie 127`.\n`v!money del @Huskie 127`.\n`v!money set @Huskie 127`.")
         else:
             if option == "add" or option == "del" or option == "set":
                 try:
@@ -1022,7 +1022,7 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
                                 money = bal + int(amount)
                                 await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
                                 msg.set_thumbnail(url=tools_img)
-                                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> added `{}`<:xccoins:464778018397618186> coins to <@{}>'s balance.".format(author.id, amount, user.id))
+                                msg.add_field(name=":zap:", value="<@{}> added `{}` coins to <@{}>'s balance.".format(author.id, amount, user.id))
                                 o.append("+1")
                                 break
                             elif option == "del":
@@ -1030,13 +1030,13 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
                                 money = bal - int(amount)
                                 await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
                                 msg.set_thumbnail(url=tools_img)
-                                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> removed `{}`<:xccoins:464778018397618186> coins from <@{}>'s balance.".format(author.id, amount, user.id))
+                                msg.add_field(name=":zap:", value="<@{}> removed `{}` coins from <@{}>'s balance.".format(author.id, amount, user.id))
                                 o.append("+1")
                                 break
                             elif option == "set":
                                 await client.edit_message(i, "{} | {} | **{}**".format(user.id, amount, user.name))
                                 msg.set_thumbnail(url=tools_img)
-                                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> set <@{}>'s balance to `{}`<:xccoins:464778018397618186> coins.".format(author.id, user.id, amount))
+                                msg.add_field(name=":zap:", value="<@{}> set <@{}>'s balance to `{}` coins.".format(author.id, user.id, amount))
                                 o.append("+1")
                                 break
                             else:
@@ -1054,7 +1054,7 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
             else:
                 msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
     else:
-        msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
     await client.say(embed=msg)
 
 ##################################
