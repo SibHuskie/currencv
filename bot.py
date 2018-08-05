@@ -330,7 +330,7 @@ async def work(ctx):
             msg.add_field(name=error_img, value="You need some rest. Try again in {} hour(s) and {} minute(s).".format(h, m))
     else:
         chnl = client.get_channel(users_chnl)
-        m = random.randint(350, 700)
+        m = random.randint(200, 500)
         if author.id in degrees:
             money = m * 2
         else:
@@ -402,7 +402,7 @@ async def steal(ctx, user: discord.Member = None):
                                 if user.id in double_securities:
                                     k = int(b[1]) - m
                                     msg.set_thumbnail(url=steal1_img)
-                                    msg.add_field(name=":moneybag:  ", value="<@{}> tried to steal from <@{}> but they were caught and paid `{}`:moneybag: coins to <@{}>.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, user.id, m, user.id, k))
+                                    msg.add_field(name=":moneybag:  ", value="<@{}> tried to steal from <@{}> but they were caught and paid `{}`:moneybag: coins to <@{}>.\nNew balance: `{}`:moneybag: coins.".format(author.id, user.id, m, user.id, k))
                                 else:
                                     k = int(b[1])
                                     msg.set_thumbnail(url=steal1_img)
