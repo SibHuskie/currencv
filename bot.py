@@ -388,7 +388,6 @@ async def help(ctx):
     msg.add_field(name="`=================================`", value=m4)
     msg.add_field(name="`=================================`", value=m5)
     msg.add_field(name="`=================================`", value=m6)
-    msg.add_field(name="`=================================`", value=m7)
     try:
         await client.send_message(author, embed=msg)
         msg2.add_field(name=":diamond_shape_with_a_dot_inside:", value="Check your DMs, <@{}>.".format(author.id))
