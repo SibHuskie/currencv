@@ -692,7 +692,7 @@ async def profile(ctx, user: discord.Member = None):
     msg.add_field(name="`=================================`", value=m)
     await client.say(embed=msg)
 
-# }shop
+# v!shop
 @client.command(pass_context=True)
 async def shop(ctx):
     author = ctx.message.author
@@ -746,7 +746,7 @@ async def shop(ctx):
         msg2.add_field(name=error_img, value="I am unable to DM you, <@{}>.".format(author.id))
     await client.say(embed=msg2)
 
-# }buy <perk>
+# v!buy <perk>
 @client.command(pass_context=True)
 async def buy(ctx, *, item = None):
     author = ctx.message.author
@@ -915,14 +915,14 @@ async def fish(ctx):
                         print("[FISH] Pass 3")
                 fcd.append(author.id)
                 msg.set_thumbnail(url=fish_img)
-                msg.add_field(name="<:xcfish:473748274596151297>", value="<@{}> caught another fish for `10`<:xccoins:464778018397618186> coins.\nThey now have `{}` fish.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, len(k), money))
+                msg.add_field(name=":fishing_pole_and_fish: ", value="<@{}> caught another fish for `10`:moneybag: coins.\nThey now have `{}` fish.\nNew balance: `{}`:moneybag: coins.".format(author.id, len(k), money))
             else:
                 msg.add_field(name=error_img, value="You do not have enough coins.")
     else:
         msg.add_field(name=error_img, value="You have to wait a bit before fishing again.")
     await client.say(embed=msg)
 
-# }gift <user> <amount>
+# v!pay <user> <amount>
 @client.command(pass_context=True)
 async def pay(ctx, user: discord.Member = None, amount = None):
     author = ctx.message.author
@@ -934,6 +934,8 @@ async def pay(ctx, user: discord.Member = None, amount = None):
     if user == None or amount == None:
         msg.add_field(name=error_img, value="Not all arguments were given!\nExample: `v!pay @Huskie 127`.")
     elif user.bot and user.id != '474827867264516107':
+        msg.add_field(name=error_img, value="You can't give coins to any bot except me.")
+    elif user.bot and user.id != '440770699259281408':
         msg.add_field(name=error_img, value="You can't give coins to any bot except me.")
     elif user.id == author.id:
         msg.add_field(name=error_img, value="You can't give coins to yourself.")
@@ -988,7 +990,7 @@ async def pay(ctx, user: discord.Member = None, amount = None):
             msg.add_field(name=error_img, value="The amount has to be a number.")
     await client.say(embed=msg)
 
-# }boost
+# v!boost
 @client.command(pass_context=True)
 async def boost(ctx):
     author = ctx.message.author
@@ -1023,7 +1025,7 @@ async def boost(ctx):
         msg.add_field(name=error_img, value="You need the booster perk to boost.")
     await client.say(embed=msg)
 
-# }convert
+# v!convert
 @client.command(pass_context=True)
 async def convert(ctx):
     author = ctx.message.author
@@ -1139,7 +1141,7 @@ async def convert(ctx):
     await client.say(embed=msg)
 
 ''' COMMANDS FOR MANAGERS '''
-# }money <add/del/set> <user> <amount>
+# v!money <add/del/set> <user> <amount>
 @client.command(pass_context=True)
 async def money(ctx, option = None, user: discord.Member = None, amount = None):
     author = ctx.message.author
@@ -1202,7 +1204,7 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
         msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
     await client.say(embed=msg)
 
-# }reset <perks/money/all> <user>
+# v!reset <perks/money/all> <user>
 @client.command(pass_context=True)
 async def reset(ctx, option = None, user: discord.Member = None):
     author = ctx.message.author
