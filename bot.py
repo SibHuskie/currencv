@@ -343,7 +343,6 @@ async def help(ctx):
     m2 += "\n- v!facepalm"
     m2 += "\n- v!lick <user>"
     m2 += "\n- v!spank <user>"
-    m2 += "\n`=================================`"
     m3 += "\n:large_blue_circle: FUN :large_blue_circle:"
     m3 += "\n- v!battle <user>"
     m3 += "\n- v!ship <text> and <text>"
@@ -352,14 +351,12 @@ async def help(ctx):
     m3 += "\n- v!rate <text>"
     m3 += "\n- v!urban <word>"
     m3 += "\n- v!rainbow"
-    m3 += "\n`=================================`"
     m4 += "\n:large_blue_circle: GENERAL :large_blue_circle: "
     m4 += "\n- v!invite"
     m4 += "\n- v!suggest <suggestion>"
     m4 += "\n- v!userinfo <user>"
     m4 += "\n- v!serverinfo"
     m4 += "\n- v!mc"
-    m4 += "\n`=================================`"
     m5 += "\n:large_blue_circle: CURRENCY :large_blue_circle:"
     m5 += "\n- v!work"
     m5 += "\n- v!steal <user> "         
@@ -373,7 +370,6 @@ async def help(ctx):
     m5 += "\n- v!pay <user> <amount>"
     m5 += "\n- v!boost"
     m5 += "\n- v!convert"
-    m5 += "\n`=================================`"
     m6 += "\n:large_blue_circle: STAFF :large_blue_circle:"
     m6 += "\n- v!bc"
     m6 += "\n- v!kick <user> [reason]"
@@ -387,6 +383,12 @@ async def help(ctx):
     m6 += "\n- v!reset <perk/money/all> <user>"
     m6 += "\n- v!say <text>"
     m6 += "\n- v!perk <add/del> <user> <perk>"
+    msg.add_field(name="`=================================`", value=m1)
+    msg.add_field(name="`=================================`", value=m2)
+    msg.add_field(name="`=================================`", value=m3)
+    msg.add_field(name="`=================================`", value=m4)
+    msg.add_field(name="`=================================`", value=m5)
+    msg.add_field(name="`=================================`", value=m6)
     try:
         await client.send_message(author, embed=msg)
         msg2.add_field(name=":diamond_shape_with_a_dot_inside:", value="Check your DMs, <@{}>.".format(author.id))
