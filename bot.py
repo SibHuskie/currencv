@@ -1291,16 +1291,16 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
 @client.command(pass_context=True)
 async def reset(ctx, option = None, user: discord.Member = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB9f0, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
-    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
-    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
     await client.send_typing(ctx.message.channel)
     if owner in author.roles or manager in author.roles:
         if option == None or user == None:
-            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}reset perks @Jimmy`.\n`}reset money @Jimmy`.\n`}reset all @Jimmy`.")
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`v!reset perks @Huskie`.\n`v!reset money @Huskie`.\n`v!reset all @Huskie`.")
         else:
             o = []
             o2 = []
@@ -1326,7 +1326,7 @@ async def reset(ctx, option = None, user: discord.Member = None):
             else:
                 print("[RESET] Pass 3")
             if option == "perks" or option == "all":
-                server = client.get_server('463671677658726412')
+                server = client.get_server('426680388002250753')
                 for i in server.channels:
                     if i.id not in chnls:
                         c = client.get_channel(i.id)
@@ -1391,13 +1391,13 @@ async def reset(ctx, option = None, user: discord.Member = None):
                 print("[RESET] Pass 6")
             if len(o) != 0 and len(o2) != 0:
                 msg.set_thumbnail(url=tools_img)
-                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset all data for <@{}>".format(author.id, user.id))
+                msg.add_field(name=":cyclone: ", value="<@{}> reset all data for <@{}>".format(author.id, user.id))
             elif len(o) != 0:
-                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset <@{}>'s balance.".format(author.id, user.id))
+                msg.add_field(name=":cyclone: ", value="<@{}> reset <@{}>'s balance.".format(author.id, user.id))
                 msg.set_thumbnail(url=tools_img)
             elif len(o2) != 0:
                 msg.set_thumbnail(url=tools_img)
-                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset <@{}>'s perks.".format(author.id, user.id))
+                msg.add_field(name=":cyclone: ", value="<@{}> reset <@{}>'s perks.".format(author.id, user.id))
             else:
                 msg.add_field(name=error_img, value="There has been an error while resetting.")
             if option == "perks" or option == "money" or option == "all":
@@ -1405,18 +1405,18 @@ async def reset(ctx, option = None, user: discord.Member = None):
             else:
                 msg.add_field(name=error_img, value="Invalid option!\nOptions: `money`, `perks`, `all`.")
     else:
-        msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
     await client.say(embed=msg)
 
 # }csay <text>
 @client.command(pass_context=True)
 async def csay(ctx, *, args = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
-    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
-    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
     await client.send_typing(ctx.message.channel)
     if author.id == '412201413335056386':
         if args == None:
@@ -1426,22 +1426,22 @@ async def csay(ctx, *, args = None):
             await client.say("{}".format(args))
             await client.delete_message(ctx.message)
     else:
-        msg.add_field(name=error_img, value="This command can only be used by Zero.")
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
         await client.say(embed=msg)
 
 # }perk <add/del> <user> <perk>
 @client.command(pass_context=True)
 async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
-    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
-    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
     await client.send_typing(ctx.message.channel)
     if owner in author.roles or manager in author.roles:
         if option == None or user == None or perk == None:
-            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}perk add @Tom clock`.\n`}perk del @Tom credit card`.")
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`v!perk add @Huskie clock`.\n`v!perk del @Huskie credit card`.")
         else:
             prks = ["clock", "credit card", "bank account", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
             pchnl = {"clock" : clocks_chnl,
@@ -1477,7 +1477,7 @@ async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
                         await client.send_message(c, author.id)
                         l.append(author.id)
                         msg.set_thumbnail(url=tools_img)
-                        msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> added a perk to <@{}>'s perks ({}).".format(author.id, user.id, perk))
+                        msg.add_field(name=":radio_button: ", value="<@{}> added a perk to <@{}>'s perks ({}).".format(author.id, user.id, perk))
                     else:
                         msg.add_field(name=error_img, value="<@{}> already has that perk.".format(user.id))
                 elif option == "del":
@@ -1499,7 +1499,7 @@ async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
                         msg.add_field(name=error_img, value="<@{}> doesn't have that perk.".format(user.id))
                     else:
                         msg.set_thumbnail(url=tools_img)
-                        msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> removed one of <@{}>'s perks ({}).".format(author.id, user.id, perk))
+                        msg.add_field(name=":radio_button: ", value="<@{}> removed one of <@{}>'s perks ({}).".format(author.id, user.id, perk))
                 else:
                     msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`.")
             else:
@@ -1508,7 +1508,7 @@ async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
                     m += "\n`{}`.".format(i)
                 msg.add_field(name=error_img, value="Invalid perk!\nList of perks:{}\nThe Elite and Royal role can only be removed manually.".format(m))
     else:
-        msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
     await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
