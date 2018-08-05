@@ -313,7 +313,7 @@ client.loop.create_task(fcdr())
 ''' COMMANDS FOR EVERYONE '''
 client.remove_command('help')
 
-# v!work
+# }work
 @client.command(pass_context=True)
 async def work(ctx):
     author = ctx.message.author
@@ -352,7 +352,7 @@ async def work(ctx):
         else:
             print("[WORK] Pass 2")
         msg.set_thumbnail(url=work_img)
-        msg.add_field(name=":moneybag: ", value="<@{}> worked for a few hours and gained `{}`:moneybag:  coins.\nNew balance: `{}`:moneybag:  coins.".format(author.id, money, k))
+        msg.add_field(name="<:xcwork:464776106290053120>", value="<@{}> worked for a few hours and gained `{}`<:xccoins:464778018397618186> coins.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, money, k))
         worked.append(author.id)
     await client.say(embed=msg)
 
