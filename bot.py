@@ -330,7 +330,7 @@ async def work(ctx):
             msg.add_field(name=error_img, value="You need some rest. Try again in {} hour(s) and {} minute(s).".format(h, m))
     else:
         chnl = client.get_channel(users_chnl)
-        m = random.randint(200, 500)
+        m = random.randint(500, 1000)
         if author.id in degrees:
             money = m * 2
         else:
@@ -380,7 +380,7 @@ async def steal(ctx, user: discord.Member = None):
             msg.add_field(name=error_img, value="You can't steal from any bots except from <@474827867264516107>.")
         else:
             chnl = client.get_channel(users_chnl)
-            m = random.randint(250, 500)
+            m = random.randint(250, 750)
             if author.id in incognitos:
                 money = m * 2
             else:
@@ -703,28 +703,28 @@ async def shop(ctx):
     msg2.title = ""
     msg2.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
-    m1 = "<:xcshop:464776106453762050> *Shop*"
+    m1 = "__**Shop**__"
     m1 += "\n`=================================`"
-    m1 += "\n:diamond_shape_with_a_dot_inside: Clock **__~~=~~__** 25000 :moneybag: **__~~=~~__** Sets working and stealing cool down to 1 hour instead of 4 hours."
-    m2 = ":diamond_shape_with_a_dot_inside: Degree **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles work money."
-    m3 = ":diamond_shape_with_a_dot_inside: Incognito **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles steal money."
-    m4 = ":diamond_shape_with_a_dot_inside: Security **__~~=~~__** 10000 :moneybag: **__~~=~~__** Everyone gets a 50/50 chance of actually stealing from you."
-    m5 = ":diamond_shape_with_a_dot_inside: Double Security **__~~=~~__** 20000 :moneybag: **__~~=~~__** If someone doesn't manage to steal from you, they automatically pay you the money they tried to steal."
-    m6 = ":diamond_shape_with_a_dot_inside: Bank Account **__~~=~~__** 60000 :moneybag: **__~~=~~__** "
+    m1 += "\n:clock5: Clock **__~~=~~__** 25000 :moneybag: **__~~=~~__** Sets working and stealing cool down to 1 hour instead of 4 hours."
+    m2 = ":speaking_head: Degree **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles work money."
+    m3 = ":bust_in_silhouette: Incognito **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles steal money."
+    m4 = ":lock: Security **__~~=~~__** 10000 :moneybag: **__~~=~~__** Everyone gets a 50/50 chance of actually stealing from you."
+    m5 = ":closed_lock_with_key: Double Security **__~~=~~__** 20000 :moneybag: **__~~=~~__** If someone doesn't manage to steal from you, they automatically pay you the money they tried to steal."
+    m6 = ":bank: Bank Account **__~~=~~__** 60000 :moneybag: **__~~=~~__** "
     m6 += "\nWithout Elites/Royals role you get +3 coins for every message you convert."
     m6 += "\nWith Elites role you get +4 coins for every message you convert."
     m6 += "\nWith Royals role you get +5 coins for every message you convert."
-    m7 = " :diamond_shape_with_a_dot_inside: Credit Card **__~~=~~__** 30000 :moneybag: **__~~=~~__**"
+    m7 = " :credit_card: Credit Card **__~~=~~__** 30000 :moneybag: **__~~=~~__**"
     m7 += "\nWithout Elites/Royals role you get +2 coins for every message you convert."
     m7 += "\nWith Elites role you get +3 coins for every message you convert."
     m7 += "\nWith Royals role you get +4 coins for every message you convert."
-    m8 = ":diamond_shape_with_a_dot_inside: Hacking Tool **__~~=~~__** 50000 :moneybag: **__~~=~~__** Allows you to hack every hour. This is a way to get a lot of money, but it has 40 win / 60 lose chance."
-    m9 = ":diamond_shape_with_a_dot_inside: Lucky Charm **__~~=~~__** 25000 :moneybag: **__~~=~~__** Gives you 60 win / 40 lose chance on slots."
-    m10 = ":diamond_shape_with_a_dot_inside: Booster **__~~=~~__** 100000 :moneybag: **__~~=~~__** Lets you double half of your money daily."
-    m11 = ":diamond_shape_with_a_dot_inside: Elites role **__~~=~~__** 135000 :moneybag: **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
-    m12 = ":diamond_shape_with_a_dot_inside: Royals role **__~~=~~__** 300000 :moneybag: **__~~=~~__** Gives you the Royals role. This role is only for royal people."
-    m13 = ":diamond_shape_with_a_dot_inside: Partnering Badge **__~~=~~__** 15000 :moneybag: **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
-    m14 = ":diamond_shape_with_a_dot_inside: Join Counter **__~~=~~__** 10000 :moneybag: **__~~=~~__** Gives you 50-100 coins every time someone joins."
+    m8 = ":computer: Hacking Tool **__~~=~~__** 50000 :moneybag: **__~~=~~__** Allows you to hack every hour. This is a way to get a lot of money, but it has 40 win / 60 lose chance."
+    m9 = ":four_leaf_clover: Lucky Charm **__~~=~~__** 25000 :moneybag: **__~~=~~__** Gives you 60 win / 40 lose chance on slots."
+    m10 = ":up: Booster **__~~=~~__** 100000 :moneybag: **__~~=~~__** Lets you double half of your money daily."
+    m11 = ":exclamation: Elites role **__~~=~~__** 135000 :moneybag: **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
+    m12 = ":bangbang: Royals role **__~~=~~__** 300000 :moneybag: **__~~=~~__** Gives you the Royals role. This role is only for royal people."
+    m13 = ":handshake: Partnering Badge **__~~=~~__** 15000 :moneybag: **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
+    m14 = ":heart: Join Counter **__~~=~~__** 10000 :moneybag: **__~~=~~__** Gives you 50-100 coins every time someone joins."
     msg.add_field(name="`=================================`", value=m1)
     msg.add_field(name="`=================================`", value=m2)
     msg.add_field(name="`=================================`", value=m3)
