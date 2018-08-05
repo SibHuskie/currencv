@@ -30,8 +30,8 @@ partnering_badges_chnl = '474831412218953738'
 join_counters_chnl = '474831412218953738'
 fishing_chnl = '474831412218953738'
 
-vip_role = '474833213865590785'
-legend_role = '474833205942550569'
+elite_role = '474833213865590785'
+royal_role = '474833205942550569'
 member_role = '464963766027812880'
 helper_role = '464963841588199440'
 mod_role = '464963897871564800'
@@ -630,8 +630,8 @@ async def profile(ctx, user: discord.Member = None):
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
-    vip = discord.utils.get(ctx.message.server.roles, name='Elites')
-    legend = discord.utils.get(ctx.message.server.roles, name='Royals')
+    elite = discord.utils.get(ctx.message.server.roles, name='Elites')
+    royal = discord.utils.get(ctx.message.server.roles, name='Royals')
     await client.send_typing(ctx.message.channel)
     if user == None:
         author = ctx.message.author
@@ -683,9 +683,9 @@ async def profile(ctx, user: discord.Member = None):
         m += ":bank: "
     if author.id in hacking_tools:
         m += ":computer:  "
-    if vip in author.roles:
+    if elite in author.roles:
         m += ":exclamation: "
-    if legend in author.roles:
+    if royal in author.roles:
         m += ":bangbang: "
     m += "\n`=================================`"
     msg.set_thumbnail(url=author.avatar_url)
@@ -759,8 +759,8 @@ async def buy(ctx, *, item = None):
     elif item not in items:
         msg.add_field(name=error_img, value="Invalid perk. Make sure you spelled it correctly and with all lower case letters.")
     else:
-        vip = discord.utils.get(ctx.message.server.roles, name='Elites')
-        legend = discord.utils.get(ctx.message.server.roles, name='Royals')
+        elite = discord.utils.get(ctx.message.server.roles, name='Elites')
+        royal = discord.utils.get(ctx.message.server.roles, name='Royals')
         chnl = client.get_channel(users_chnl)
         o = []
         async for i in client.logs_from(chnl, limit=1000000000000):
@@ -776,7 +776,7 @@ async def buy(ctx, *, item = None):
             msg.add_field(name=error_img, value="You do not have enough coins.")
         else:
             if item == "elites role":
-                if vip in author.roles:
+                if elite in author.roles:
                     msg.add_field(name=error_img, value="You already have this perk.")
                 else:
                     if int(bal) >= 135000:
@@ -789,13 +789,13 @@ async def buy(ctx, *, item = None):
                                 break
                             else:
                                 print("[BUY] Pass 2")
-                        await client.add_roles(author, vip)
+                        await client.add_roles(author, elite)
                         msg.set_thumbnail(url=shop_img)
                         msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :exclamation: Elites role for `135000`<:xccoins:464778018397618186> coins.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
             elif item == "royals role":
-                if legend in author.roles:
+                if royal in author.roles:
                     msg.add_field(name=error_img, value="You already have this perk.")
                 else:
                     if int(bal) >= 300000:
@@ -808,7 +808,7 @@ async def buy(ctx, *, item = None):
                                 break
                             else:
                                 print("[BUY] Pass 3")
-                        await client.add_roles(author, legend)
+                        await client.add_roles(author, royal)
                         msg.set_thumbnail(url=shop_img)
                         msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :bangbang: Royals role for `300000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
                     else:
@@ -1031,8 +1031,8 @@ async def convert(ctx):
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
-    vip = discord.utils.get(ctx.message.server.roles, name='Elites')
-    legend = discord.utils.get(ctx.message.server.roles, name='Royals')
+    elite = discord.utils.get(ctx.message.server.roles, name='Elites')
+    royal = discord.utils.get(ctx.message.server.roles, name='Royals')
     await client.send_typing(ctx.message.channel)
     m = ":recycle: *Converter*"
     m += "\n`=================================`"
@@ -1050,10 +1050,10 @@ async def convert(ctx):
     msgs2 = []
     m += "\n***=***  Converted {} messages into __{}__ coins.".format(msgs, msgs)
     if author.id in credit_cards:
-        if legend in author.roles:
+        if royal in author.roles:
             l = msgs * 4
             m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
-        elif vip in author.roles:
+        elif elite in author.roles:
             l = msgs * 3
             m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
         else:
@@ -1064,10 +1064,10 @@ async def convert(ctx):
     else:
         print("[CONVERT] Pass 2")
     if author.id in bank_accounts:
-        if legend in author.roles:
+        if royal in author.roles:
             l2 = msgs * 5
             m += "\n-----***=***  Bank account bonus: __{}__ coins.".format(l2)
-        elif vip in author.roles:
+        elif elite in author.roles:
             l2 = msgs * 4
             m += "\n-----***=***  Bank account bonus: __{}__ coins.".format(l2)
         else:
@@ -1421,7 +1421,7 @@ async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
                 m = ""
                 for i in prks:
                     m += "\n`{}`.".format(i)
-                msg.add_field(name=error_img, value="Invalid perk!\nList of perks:{}\nThe VIP and Legend role can only be removed manually.".format(m))
+                msg.add_field(name=error_img, value="Invalid perk!\nList of perks:{}\nThe Elite and Royal role can only be removed manually.".format(m))
     else:
         msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
     await client.say(embed=msg)
