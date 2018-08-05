@@ -1206,7 +1206,7 @@ async def money(ctx, option = None, user: discord.Member = None, amount = None):
 @client.command(pass_context=True)
 async def reset(ctx, option = None, user: discord.Member = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg = discord.Embed(colour=0xFFB9f0, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
