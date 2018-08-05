@@ -873,7 +873,7 @@ async def buy(ctx, *, item = None):
                                 print("[BUY] Pass 2")
                         await client.add_roles(author, elite)
                         msg.set_thumbnail(url=shop_img)
-                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :exclamation: Elites role for `135000`<:xccoins:464778018397618186> coins.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, money))
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :exclamation: Elites role for `135000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
             elif item == "royals role":
