@@ -383,12 +383,12 @@ async def help(ctx):
     m6 += "\n- v!reset <perk/money/all> <user>"
     m6 += "\n- v!say <text>"
     m6 += "\n- v!perk <add/del> <user> <perk>"
-    msg.add_field(name="`=================================`", value=m1)
-    msg.add_field(name="`=================================`", value=m17)
-    msg.add_field(name="`=================================`", value=m25)
-    msg.add_field(name="`=================================`", value=m31)
-    msg.add_field(name="`=================================`", value=m44)
-    msg.add_field(name="`=================================`", value=m57)
+    msg.add_field(name="`=================================`", value=m2)
+    msg.add_field(name="`=================================`", value=m3)
+    msg.add_field(name="`=================================`", value=m4)
+    msg.add_field(name="`=================================`", value=m5)
+    msg.add_field(name="`=================================`", value=m6)
+    msg.add_field(name="`=================================`", value=m7)
     try:
         await client.send_message(author, embed=msg)
         msg2.add_field(name=":diamond_shape_with_a_dot_inside:", value="Check your DMs, <@{}>.".format(author.id))
