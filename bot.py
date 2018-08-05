@@ -374,7 +374,7 @@ async def help(ctx):
     m5 += "\n- v!boost"
     m5 += "\n- v!convert"
     m5 += "\n`=================================`"
-    m6 += "\n:large_blue_circle: STAFF :large_blue_circle: 
+    m6 += "\n:large_blue_circle: STAFF :large_blue_circle:"
     m6 += "\n- v!bc"
     m6 += "\n- v!kick <user> [reason]"
     m6 += "\n- v!hackban <id> <reason>"
@@ -386,7 +386,7 @@ async def help(ctx):
     m6 += "\n- v!money <add/del/set> <user> <amount>"
     m6 += "\n- v!reset <perk/money/all> <user>"
     m6 += "\n- v!say <text>"
-    m6 += "\n- v!perk <add/del> <user> <perk>
+    m6 += "\n- v!perk <add/del> <user> <perk>"
     try:
         await client.send_message(author, embed=msg)
         msg2.add_field(name=":diamond_shape_with_a_dot_inside:", value="Check your DMs, <@{}>.".format(author.id))
