@@ -57,12 +57,12 @@ hack_img = 'https://i.imgur.com/L2zf68E.png'
 fish_img = 'https://i.imgur.com/ngAJpQU.png'
 convert_img = 'https://i.imgur.com/h5tTzFU.png'
 
-items = ["clock", "credit card", "bank account", "vip role", "legend role", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
+items = ["clock", "credit card", "bank account", "elites role", "royals role", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
 perks = {"clock" : "25000",
          "credit card" : "30000",
          "bank account" : "60000",
-         "vip role" : "135000",
-         "legend role" : "300000",
+         "elites role" : "135000",
+         "royals role" : "300000",
          "incognito" : "15000",
          "degree" : "15000",
          "lucky charm" : "25000",
@@ -161,7 +161,7 @@ async def on_ready():
     print("Name: {}".format(client.user.name))
     print("ID: {}".format(client.user.id))
     print("============================================================")
-    await client.change_presence(game=discord.Game(name="on Violets"))
+    await client.change_presence(game=discord.Game(name="with Huskie."))
     await client.wait_until_ready()
     t2 = time.perf_counter()
     print("Ping: {}".format(round((t2-t1)*1000)))
@@ -193,7 +193,7 @@ async def on_member_join(userName: discord.User):
             print("[JOIN SYSTEM] {} ### +{} coins - {}".format(i, c, m))
         else:
             print("[JOIN SYSTEM] Pass")
-                  
+
 # MESSAGE SYSTEM
 @client.event
 async def on_message(i):
@@ -311,21 +311,13 @@ async def fcdr():
 client.loop.create_task(fcdr())
 
 ''' COMMANDS FOR EVERYONE '''
-# }help
 client.remove_command('help')
-@client.command(pass_context=True)
-async def help(ctx):
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
-    msg.title = ""
-    msg.add_field(name=":incoming_envelope: ", value="You can see all commands in the <#442267483672674314> channel!")
-    msg.set_footer(text=footer_text)
-    await client.say(embed=msg)
 
 # v!work
 @client.command(pass_context=True)
 async def work(ctx):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -338,7 +330,7 @@ async def work(ctx):
             msg.add_field(name=error_img, value="You need some rest. Try again in {} hour(s) and {} minute(s).".format(h, m))
     else:
         chnl = client.get_channel(users_chnl)
-        m = random.randint(75, 300)
+        m = random.randint(350, 700)
         if author.id in degrees:
             money = m * 2
         else:
@@ -360,15 +352,15 @@ async def work(ctx):
         else:
             print("[WORK] Pass 2")
         msg.set_thumbnail(url=work_img)
-        msg.add_field(name=":moneybag: ", value="<@{}> worked for a few hours and gained `{}` coins.\nNew balance: `{}` coins.".format(author.id, money, k))
+        msg.add_field(name=":moneybag: ", value="<@{}> worked for a few hours and gained `{}`:moneybag:  coins.\nNew balance: `{}`:moneybag:  coins.".format(author.id, money, k))
         worked.append(author.id)
     await client.say(embed=msg)
-         
+
 # v!steal <user>
 @client.command(pass_context=True)
 async def steal(ctx, user: discord.Member = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -384,8 +376,8 @@ async def steal(ctx, user: discord.Member = None):
             msg.add_field(name=error_img, value="Please mention the user you want to steal from.")
         elif user.id == author.id:
             msg.add_field(name=error_img, value="You can't steal from yourself.")
-        elif user.bot and user.id != '440770699259281408':
-            msg.add_field(name=error_img, value="You can't steal from any bots except from <@440770699259281408>.")
+        elif user.bot and user.id != '474827867264516107':
+            msg.add_field(name=error_img, value="You can't steal from any bots except from <@474827867264516107>.")
         else:
             chnl = client.get_channel(users_chnl)
             m = random.randint(250, 500)
@@ -405,20 +397,20 @@ async def steal(ctx, user: discord.Member = None):
                             if p == 0:
                                 k = int(b[1]) + money
                                 msg.set_thumbnail(url=steal2_img)
-                                msg.add_field(name=":moneybag:", value="<@{}> stole `{}` coins from <@{}>.\nNew balance: `{}` coins.".format(author.id, money, user.id, k))
+                                msg.add_field(name=":moneybag: ", value="<@{}> stole `{}`:moneybag: coins from <@{}>.\nNew balance: `{}`:moneybag:  coins.".format(author.id, money, user.id, k))
                             else:
                                 if user.id in double_securities:
                                     k = int(b[1]) - m
                                     msg.set_thumbnail(url=steal1_img)
-                                    msg.add_field(name=":moneybag: ", value="<@{}> tried to steal from <@{}> but they were caught and paid `{}` coins to <@{}>.\nNew balance: `{}` coins.".format(author.id, user.id, m, user.id, k))
+                                    msg.add_field(name=":moneybag:  ", value="<@{}> tried to steal from <@{}> but they were caught and paid `{}`:moneybag: coins to <@{}>.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, user.id, m, user.id, k))
                                 else:
                                     k = int(b[1])
                                     msg.set_thumbnail(url=steal1_img)
-                                    msg.add_field(name=":moneybag: ", value="<@{}> tried to steal from <@{}> but they were caught.\nNew balance: `{}` coins.".format(author.id, user.id, k))
+                                    msg.add_field(name=":moneybag:  ", value="<@{}> tried to steal from <@{}> but they were caught.\nNew balance: `{}`:moneybag: coins.".format(author.id, user.id, k))
                         else:
                             k = int(b[1]) + money
                             msg.set_thumbnail(url=steal2_img)
-                            msg.add_field(name=":moneybag: ", value="<@{}> stole `{}` coins from <@{}>.\nNew balance: `{}` coins.".format(author.id, money, user.id, k))
+                            msg.add_field(name=":moneybag:", value="<@{}> stole `{}`:moneybag: coins from <@{}>.\nNew balance: `{}`:moneybag: coins.".format(author.id, money, user.id, k))
                         await client.edit_message(i, "{} | {} | **{}**".format(author.id, k, author.name))
                         o.append("+1")
                     elif user.id in a:
@@ -451,7 +443,7 @@ async def steal(ctx, user: discord.Member = None):
 @client.command(pass_context=True)
 async def hack(ctx, number = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -501,12 +493,12 @@ async def hack(ctx, number = None):
                                 k = int(b[1]) - money
                                 msg.set_thumbnail(url=hack_img)
                                 msg.add_field(name=":computer: ", value="{}\n{}".format(ms, lose))
-                                msg.add_field(name=":computer: ", value="<@{}> tried to hack {} companies but failed and had to pay `{}` coins.\nNew balance: `{}` coins.".format(author.id, number, money, k))
+                                msg.add_field(name=":computer: ", value="<@{}> tried to hack {} companies but failed and had to pay `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, number, money, k))
                             else:
                                 k = int(b[1]) + money
                                 msg.set_thumbnail(url=hack_img)
                                 msg.add_field(name=":computer: ", value="{}\n{}".format(ms, win))
-                                msg.add_field(name=":computer: ", value="<@{}> hacked {} companies and stole `{}` coins.\nNew balance: `{}` coins.".format(author.id, number, money, k))
+                                msg.add_field(name=":computer: ", value="<@{}> hacked {} companies and stole `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, number, money, k))
                             await client.edit_message(i, "{} | {} | **{}**".format(author.id, k, author.name))
                             o.append("+1")
                             break
@@ -522,12 +514,12 @@ async def hack(ctx, number = None):
     else:
         msg.add_field(name=error_img, value="You need the hacking tool to hack.")
     await client.say(embed=msg)
-         
+
 # }slots <amount>
 @client.command(pass_context=True)
 async def slots(ctx, amount = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -581,23 +573,23 @@ async def slots(ctx, amount = None):
                     money = bet + bal
                     await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
                     msg.set_thumbnail(url=slots2_img)
-                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and won `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                    msg.add_field(name=":slot_machine:", value="<@{}> gambled and won `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, bet, money))
                 else:
                     money = bal - bet
                     await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
                     msg.set_thumbnail(url=slots1_img)
-                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and lost `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                    msg.add_field(name=":slot_machine:", value="<@{}> gambled and lost `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, bet, money))
             else:
                 if per >= 5:
                     money = bet + bal
                     await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
                     msg.set_thumbnail(url=slots2_img)
-                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and won `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                    msg.add_field(name=":slot_machine:", value="<@{}> gambled and won `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, bet, money))
                 else:
                     money = bal - bet
                     await client.edit_message(o[0], "{} | {} | **{}**".format(author.id, money, author.name))
                     msg.set_thumbnail(url=slots1_img)
-                    msg.add_field(name=":slot_machine: ", value="<@{}> gambled and lost `{}` coins.\nNew balance: `{}` coins.".format(author.id, bet, money))
+                    msg.add_field(name=":slot_machine:", value="<@{}> gambled and lost `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, bet, money))
         else:
             print("[SLOTS] Pass 2")
     await client.say(embed=msg)
@@ -605,7 +597,7 @@ async def slots(ctx, amount = None):
 # }bal [user]
 @client.command(pass_context=True)
 async def bal(ctx, user: discord.Member = None):
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
@@ -626,44 +618,113 @@ async def bal(ctx, user: discord.Member = None):
             print("[BAL] Pass 1")
     msg.set_thumbnail(url=bal_img)
     if len(o) != 0:
-        msg.add_field(name=":moneybag:", value="<@{}>'s balance is: `{}` coins.".format(author.id, bal))
+        msg.add_field(name=":globe_with_meridians:", value="<@{}>'s balance is: `{}`:moneybag: coins.".format(author.id, bal))
     else:
-        msg.add_field(name=":moneybag:", value="<@{}>'s balance is: `0` coins.".format(author.id))
+        msg.add_field(name=":globe_with_meridians:", value="<@{}>'s balance is: `0`:moneybag: coins.".format(author.id))
     await client.say(embed=msg)
-         
+
+# }profile [user]
+@client.command(pass_context=True)
+async def profile(ctx, user: discord.Member = None):
+    msg = discord.Embed(colour=0x4286f4, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    vip = discord.utils.get(ctx.message.server.roles, name='Elites')
+    legend = discord.utils.get(ctx.message.server.roles, name='Royals')
+    await client.send_typing(ctx.message.channel)
+    if user == None:
+        author = ctx.message.author
+    else:
+        author = user
+    o = []
+    async for i in client.logs_from(chnl, limit=1000000000000):
+        a = str(i.content)
+        if author.id in a:
+            b = i.content.split(' | ')
+            bal1 = int(b[1])
+            o.append("+1")
+            break
+        else:
+            print("[BAL] Pass 1")
+    msg.set_thumbnail(url=bal_img)
+    if len(o) != 0:
+        bal = bal1
+    else:
+        bal = 0
+    m = ":globe_with_meridians: *Profile*"
+    m += "\n`=================================`"
+    m += "\n***User:***  <@{}>".format(author.id)
+    m += "\n***ID:*** {}".format(author.id)
+    m += "\n***Balance:***  {} :moneybag:".format(bal)
+    m += "\n`=================================`"
+    m += "\n***Perks:***\n"
+    if author.id in clocks:
+        m += ":clock5:   "
+    if author.id in degrees:
+        m += ":speaking_head: "
+    if author.id in incognitos:
+        m += ":bust_in_silhouette: "
+    if author.id in boosters:
+        m += ":up: "
+    if author.id in lucky_charms:
+        m += ":four_leaf_clover: "
+    if author.id in securities:
+        m += ":lock: "
+    if author.id in double_securities:
+        m += ":closed_lock_with_key: "
+    if author.id in partnering_badges:
+        m += ":handshake: "
+    if author.id in join_counters:
+        m += ":heart: "
+    if author.id in credit_cards:
+        m += ":credit_card: "
+    if author.id in bank_accounts:
+        m += ":bank: "
+    if author.id in hacking_tools:
+        m += ":computer:  "
+    if vip in author.roles:
+        m += ":exclamation: "
+    if legend in author.roles:
+        m += ":bangbang: "
+    m += "\n`=================================`"
+    msg.set_thumbnail(url=author.avatar_url)
+    msg.add_field(name="`=================================`", value=m)
+    await client.say(embed=msg)
+
 # }shop
 @client.command(pass_context=True)
 async def shop(ctx):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
-    msg2 = discord.Embed(colour=0x3a5bd1, description= "")
+    msg2 = discord.Embed(colour=0x4286f4, description= "")
     msg2.title = ""
     msg2.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
     m1 = "<:xcshop:464776106453762050> *Shop*"
     m1 += "\n`=================================`"
-    m1 += "\n:diamond_shape_with_a_dot_inside: Clock **__~~=~~__** 25000 coins **__~~=~~__** Sets working and stealing cool down to 1 hour instead of 4 hours."
-    m2 = ":diamond_shape_with_a_dot_inside: Degree **__~~=~~__** 15000 coins **__~~=~~__** Doubles work money."
-    m3 = ":diamond_shape_with_a_dot_inside: Incognito **__~~=~~__** 15000 coins **__~~=~~__** Doubles steal money."
-    m4 = ":diamond_shape_with_a_dot_inside: Security **__~~=~~__** 10000 coins **__~~=~~__** Everyone gets a 50/50 chance of actually stealing from you."
-    m5 = ":diamond_shape_with_a_dot_inside: Double Security **__~~=~~__** 20000 coins **__~~=~~__** If someone doesn't manage to steal from you, they automatically pay you the money they tried to steal."
-    m6 = ":diamond_shape_with_a_dot_inside: Bank Account **__~~=~~__** 60000 coins **__~~=~~__** "
-    m6 += "\nWithout Elite/Royal role you get +3 coins for every message you convert."
-    m6 += "\nWith Elite role you get +4 coins for every message you convert."
-    m6 += "\nWith Royal role you get +5 coins for every message you convert."
-    m7 = " :diamond_shape_with_a_dot_inside: Credit Card **__~~=~~__** 30000 coins **__~~=~~__**"
-    m7 += "\nWithout Elite/Royal role you get +2 coins for every message you convert."
+    m1 += "\n:diamond_shape_with_a_dot_inside: Clock **__~~=~~__** 25000 :moneybag: **__~~=~~__** Sets working and stealing cool down to 1 hour instead of 4 hours."
+    m2 = ":diamond_shape_with_a_dot_inside: Degree **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles work money."
+    m3 = ":diamond_shape_with_a_dot_inside: Incognito **__~~=~~__** 15000 :moneybag: **__~~=~~__** Doubles steal money."
+    m4 = ":diamond_shape_with_a_dot_inside: Security **__~~=~~__** 10000 :moneybag: **__~~=~~__** Everyone gets a 50/50 chance of actually stealing from you."
+    m5 = ":diamond_shape_with_a_dot_inside: Double Security **__~~=~~__** 20000 :moneybag: **__~~=~~__** If someone doesn't manage to steal from you, they automatically pay you the money they tried to steal."
+    m6 = ":diamond_shape_with_a_dot_inside: Bank Account **__~~=~~__** 60000 :moneybag: **__~~=~~__** "
+    m6 += "\nWithout Elites/Royals role you get +3 coins for every message you convert."
+    m6 += "\nWith Elites role you get +4 coins for every message you convert."
+    m6 += "\nWith Royals role you get +5 coins for every message you convert."
+    m7 = " :diamond_shape_with_a_dot_inside: Credit Card **__~~=~~__** 30000 :moneybag: **__~~=~~__**"
+    m7 += "\nWithout Elites/Royals role you get +2 coins for every message you convert."
     m7 += "\nWith Elites role you get +3 coins for every message you convert."
     m7 += "\nWith Royals role you get +4 coins for every message you convert."
-    m8 = ":diamond_shape_with_a_dot_inside: Hacking Tool **__~~=~~__** 50000 coins **__~~=~~__** Allows you to hack every hour. This is a way to get a lot of money, but it has 40 win / 60 lose chance."
-    m9 = ":diamond_shape_with_a_dot_inside: Lucky Charm **__~~=~~__** 25000 coins **__~~=~~__** Gives you 60 win / 40 lose chance on slots."
-    m10 = ":diamond_shape_with_a_dot_inside: Booster **__~~=~~__** 100000 coins **__~~=~~__** Lets you double half of your money daily."
-    m11 = ":diamond_shape_with_a_dot_inside: Elites role **__~~=~~__** 135000 coins **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
-    m12 = ":diamond_shape_with_a_dot_inside: Royals role **__~~=~~__** 300000 coins **__~~=~~__** Gives you the Royals role. This role is only for legendary people."
-    m13 = ":diamond_shape_with_a_dot_inside: Partnering Badge **__~~=~~__** 15000 coins **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
-    m14 = ":diamond_shape_with_a_dot_inside: Join Counter **__~~=~~__** 10000 coins **__~~=~~__** Gives you 50-100 coins every time someone joins."
+    m8 = ":diamond_shape_with_a_dot_inside: Hacking Tool **__~~=~~__** 50000 :moneybag: **__~~=~~__** Allows you to hack every hour. This is a way to get a lot of money, but it has 40 win / 60 lose chance."
+    m9 = ":diamond_shape_with_a_dot_inside: Lucky Charm **__~~=~~__** 25000 :moneybag: **__~~=~~__** Gives you 60 win / 40 lose chance on slots."
+    m10 = ":diamond_shape_with_a_dot_inside: Booster **__~~=~~__** 100000 :moneybag: **__~~=~~__** Lets you double half of your money daily."
+    m11 = ":diamond_shape_with_a_dot_inside: Elites role **__~~=~~__** 135000 :moneybag: **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
+    m12 = ":diamond_shape_with_a_dot_inside: Royals role **__~~=~~__** 300000 :moneybag: **__~~=~~__** Gives you the Royals role. This role is only for royal people."
+    m13 = ":diamond_shape_with_a_dot_inside: Partnering Badge **__~~=~~__** 15000 :moneybag: **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
+    m14 = ":diamond_shape_with_a_dot_inside: Join Counter **__~~=~~__** 10000 :moneybag: **__~~=~~__** Gives you 50-100 coins every time someone joins."
     msg.add_field(name="`=================================`", value=m1)
     msg.add_field(name="`=================================`", value=m2)
     msg.add_field(name="`=================================`", value=m3)
@@ -684,12 +745,12 @@ async def shop(ctx):
     except:
         msg2.add_field(name=error_img, value="I am unable to DM you, <@{}>.".format(author.id))
     await client.say(embed=msg2)
-         
+
 # }buy <perk>
 @client.command(pass_context=True)
 async def buy(ctx, *, item = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     await client.send_typing(ctx.message.channel)
@@ -698,8 +759,8 @@ async def buy(ctx, *, item = None):
     elif item not in items:
         msg.add_field(name=error_img, value="Invalid perk. Make sure you spelled it correctly and with all lower case letters.")
     else:
-        vip = discord.utils.get(ctx.message.server.roles, id=vip_role)
-        legend = discord.utils.get(ctx.message.server.roles, id=legend_role)
+        vip = discord.utils.get(ctx.message.server.roles, name='Elites')
+        legend = discord.utils.get(ctx.message.server.roles, name='Royals')
         chnl = client.get_channel(users_chnl)
         o = []
         async for i in client.logs_from(chnl, limit=1000000000000):
@@ -714,7 +775,7 @@ async def buy(ctx, *, item = None):
         if len(o) == 0:
             msg.add_field(name=error_img, value="You do not have enough coins.")
         else:
-            if item == "vip role":
+            if item == "elites role":
                 if vip in author.roles:
                     msg.add_field(name=error_img, value="You already have this perk.")
                 else:
@@ -730,10 +791,10 @@ async def buy(ctx, *, item = None):
                                 print("[BUY] Pass 2")
                         await client.add_roles(author, vip)
                         msg.set_thumbnail(url=shop_img)
-                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought Elites role for `135000` coins.\nNew balance: `{}` coins.".format(author.id, money))
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :exclamation: Elites role for `135000`<:xccoins:464778018397618186> coins.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
-            elif item == "legend role":
+            elif item == "royals role":
                 if legend in author.roles:
                     msg.add_field(name=error_img, value="You already have this perk.")
                 else:
@@ -749,7 +810,7 @@ async def buy(ctx, *, item = None):
                                 print("[BUY] Pass 3")
                         await client.add_roles(author, legend)
                         msg.set_thumbnail(url=shop_img)
-                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought Royals role for `300000` coins.\nNew balance: `{}` coins.".format(author.id, money))
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :bangbang: Royals role for `300000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
             else:
@@ -765,18 +826,18 @@ async def buy(ctx, *, item = None):
                           "join counter" : join_counters,
                           "booster" : boosters,
                           "lucky charm" : lucky_charms}
-                plook = {"clock" : ":diamond_shape_with_a_dot_inside: Clock",
-                         "degree" : ":diamond_shape_with_a_dot_inside: Degree",
-                         "incognito" : ":diamond_shape_with_a_dot_inside: Incognito",
-                         "credit card" : ":diamond_shape_with_a_dot_inside: Credit Card",
-                         "bank account" : ":diamond_shape_with_a_dot_inside: Bank Account",
-                         "security" : ":diamond_shape_with_a_dot_inside: Security",
-                         "double security" : ":diamond_shape_with_a_dot_inside: Double Security",
-                         "hacking tool" : ":diamond_shape_with_a_dot_inside: Hacking Tool",
-                         "partnering badge" : ":diamond_shape_with_a_dot_inside: Partnering Badge",
-                         "join counter" : ":diamond_shape_with_a_dot_inside: Join Counter",
-                         "booster" : ":diamond_shape_with_a_dot_inside: Booster",
-                         "lucky charm" : ":diamond_shape_with_a_dot_inside: Lucky Charm"}
+                plook = {"clock" : ":clock5: Clock",
+                         "degree" : ":speaking_head: Degree",
+                         "incognito" : ":bust_in_silhouette: Incognito",
+                         "credit card" : ":credit_card: Credit Card",
+                         "bank account" : ":bank: Bank Account",
+                         "security" : ":lock: Security",
+                         "double security" : ":closed_lock_with_key: Double Security",
+                         "hacking tool" : ":computer: Hacking Tool",
+                         "partnering badge" : ":handshake: Partnering Badge",
+                         "join counter" : ":heart: Join Counter",
+                         "booster" : ":up: Booster",
+                         "lucky charm" : ":four_leaf_clover: Lucky Charm"}
                 pchnl = {"clock" : clocks_chnl,
                          "degree" : degrees_chnl,
                          "incognito" : incognitos_chnl,
@@ -808,22 +869,70 @@ async def buy(ctx, *, item = None):
                         l.append(author.id)
                         await client.send_message(client.get_channel(pchnl["{}".format(item)]), "{}".format(author.id))
                         msg.set_thumbnail(url=shop_img)
-                        msg.add_field(name=":diamond_shape_with_a_dot_inside: ", value="<@{}> successfully bought {} for `{}` coins.\nNew balance: `{}` coins.".format(author.id, plook["{}".format(item)], cost, money))
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought {} for `{}`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, plook["{}".format(item)], cost, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
+    await client.say(embed=msg)
+
+@client.command(pass_context=True)
+async def fish(ctx):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x4286f4, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    o = []
+    chnl = client.get_channel(users_chnl)
+    await client.send_typing(ctx.message.channel)
+    if author.id not in fcd:
+        async for i in client.logs_from(chnl, limit=1000000000000):
+            a = str(i.content)
+            if author.id in a:
+                b = i.content.split(' | ')
+                bal = b[1]
+                o.append("+1")
+                break
+            else:
+                print("[FISH] Pass 1")
+        if len(o) == 0:
+            msg.add_field(name=error_img, value="You do not have enough coins.")
+        else:
+            if int(bal) >= 10:
+                fishes.append(author.id)
+                async for i in client.logs_from(chnl, limit=1000000000000):
+                    a = str(i.content)
+                    if author.id in a:
+                        b = i.content.split(' | ')
+                        money = int(bal) - 10
+                        await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                        break
+                    else:
+                        print("[FISH] Pass 2")
+                k = []
+                for o in fishes:
+                    if o == author.id:
+                        k.append("+")
+                    else:
+                        print("[FISH] Pass 3")
+                fcd.append(author.id)
+                msg.set_thumbnail(url=fish_img)
+                msg.add_field(name="<:xcfish:473748274596151297>", value="<@{}> caught another fish for `10`<:xccoins:464778018397618186> coins.\nThey now have `{}` fish.\nNew balance: `{}`<:xccoins:464778018397618186> coins.".format(author.id, len(k), money))
+            else:
+                msg.add_field(name=error_img, value="You do not have enough coins.")
+    else:
+        msg.add_field(name=error_img, value="You have to wait a bit before fishing again.")
     await client.say(embed=msg)
 
 # }gift <user> <amount>
 @client.command(pass_context=True)
 async def pay(ctx, user: discord.Member = None, amount = None):
     author = ctx.message.author
-    msg = discord.Embed(colour=0x3a5bd1, description= "")
+    msg = discord.Embed(colour=0x4286f4, description= "")
     msg.title = ""
     msg.set_footer(text=footer_text)
     chnl = client.get_channel(users_chnl)
     await client.send_typing(ctx.message.channel)
     if user == None or amount == None:
-        msg.add_field(name=error_img, value="Not all arguments were given!\nExample: `v!gift @Huskie 4325`.")
+        msg.add_field(name=error_img, value="Not all arguments were given!\nExample: `v!pay @Huskie 127`.")
     elif user.bot and user.id != '474827867264516107':
         msg.add_field(name=error_img, value="You can't give coins to any bot except me.")
     elif user.id == author.id:
@@ -856,7 +965,7 @@ async def pay(ctx, user: discord.Member = None, amount = None):
                                 await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
                                 p.append("+1")
                                 msg.set_thumbnail(url=gift_img)
-                                msg.add_field(name=":money_with_wings: ", value="<@{}> gave <@{}> `{}` coins.\nNew balance: `{}`.".format(author.id, user.id, amount, money))
+                                msg.add_field(name=":money_with_wings: ", value="<@{}> gave <@{}> `{}`:moneybag: coins.\nNew balance: `{}`:moneybag:.".format(author.id, user.id, amount, money))
                                 break
                         else:
                             print("")
@@ -877,6 +986,444 @@ async def pay(ctx, user: discord.Member = None, amount = None):
                     msg.add_field(name=error_img, value="The mentioned user didn't accept your gift.")
         except:
             msg.add_field(name=error_img, value="The amount has to be a number.")
+    await client.say(embed=msg)
+
+# }boost
+@client.command(pass_context=True)
+async def boost(ctx):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x4286f4, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    await client.send_typing(ctx.message.channel)
+    if author.id in boosters:
+        if author.id in boosted:
+            msg.add_field(name=error_img, value="You already boosted today. Try again tomorrow.")
+        else:
+            async for i in client.logs_from(chnl, limit=1000000000000):
+                a = str(i.content)
+                if author.id in a:
+                    b = i.content.split(' | ')
+                    bal = b[1]
+                    if int(bal) < 4:
+                        msg.add_field(name=error_img, value="You need at least 4 coins to boost.")
+                        break
+                    else:
+                        money1 = int(bal) / 2
+                        money = int(money1) + int(bal)
+                        await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                        boosted.append(author.id)
+                        msg.set_thumbnail(url=boost_img)
+                        msg.add_field(name=":up:", value="<@{}> boosted and doubled half of their money.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
+                        break
+                else:
+                    print("[BOOST] Pass 1")
+    else:
+        msg.add_field(name=error_img, value="You need the booster perk to boost.")
+    await client.say(embed=msg)
+
+# }convert
+@client.command(pass_context=True)
+async def convert(ctx):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x4286f4, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    vip = discord.utils.get(ctx.message.server.roles, name='Elites')
+    legend = discord.utils.get(ctx.message.server.roles, name='Royals')
+    await client.send_typing(ctx.message.channel)
+    m = ":recycle: *Converter*"
+    m += "\n`=================================`"
+    m += "\n***User:***  <@{}>".format(author.id)
+    m += "\n`=================================`"
+    msgss = []
+    for i in range(len(messages)):
+        if author.id in messages:
+            messages.remove(author.id)
+            msgss.append("+1")
+        else:
+            print("[CONVERT] Pass 1")
+    msgs = len(msgss)
+    msgs1 = []
+    msgs2 = []
+    m += "\n***=***  Converted {} messages into __{}__ coins.".format(msgs, msgs)
+    if author.id in credit_cards:
+        if legend in author.roles:
+            l = msgs * 4
+            m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
+        elif vip in author.roles:
+            l = msgs * 3
+            m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
+        else:
+            l = msgs * 2
+            m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
+        for k in range(l):
+            msgs1.append("+1")
+    else:
+        print("[CONVERT] Pass 2")
+    if author.id in bank_accounts:
+        if legend in author.roles:
+            l2 = msgs * 5
+            m += "\n-----***=***  Bank account bonus: __{}__ coins.".format(l2)
+        elif vip in author.roles:
+            l2 = msgs * 4
+            m += "\n-----***=***  Bank account bonus: __{}__ coins.".format(l2)
+        else:
+            l2 = msgs * 3
+            m += "\n-----***=***  Bank account bonus: __{}__ coins.".format(l2)
+        for k in range(l2):
+            msgs2.append("+1")
+    else:
+        print("[CONVERT] Pass 3")
+    cmsgs = len(msgs1) + len(msgs2) + msgs
+    #########################
+    bcs = []
+    for i in con_partners:
+        a = str(i)
+        if author.id in a:
+            b = i.split(' | ')
+            bc = int(b[0])
+            m += "\n***=***  Converted __{}__ coins from partnerships.".format(bc)
+            break
+        else:
+            print("[CONVERT] Pass 4")
+        for k in range(bc):
+            bcs.append("+1")
+    cpartners = len(bcs)
+    #########################
+    jcs = []
+    for i in joins:
+        a = str(i)
+        if author.id in a:
+            b = i.split(' | ')
+            jc = int(b[0])
+            m += "\n***=***  Converted __{}__ coins from joins.".format(jc)
+            break
+        else:
+            print("[CONVERT] Pass 5")
+        for k in range(jc):
+            jcs.append("+1")
+    cjoins = len(jcs)
+    #########################
+    f = []
+    for i in range(len(fishes)):
+        if author.id in fishes:
+            fishes.remove(author.id)
+            f.append("+1")
+        else:
+            print("[CONVERT] Pass 6")
+    fc = len(f)
+    d = random.randint(10, 70)
+    cfish = len(f) * d
+    m += "\n***=***  Sold {} fish for __{}__ coins.".format(fc, cfish)
+    ########################
+    total = cmsgs + cpartners + cjoins + cfish
+    m += "\n`=================================`"
+    m += "\n***Total:*** __{}__ :moneybag: coins.".format(total)
+    async for i in client.logs_from(chnl, limit=1000000000000):
+        a = str(i.content)
+        if author.id in a:
+            b = i.content.split(' | ')
+            bal = int(b[1])
+            money = bal + total
+            await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+            break
+        else:
+            print("[CONVERT] Pass 7")
+    m += "\n***New balance:***  __{}__ :moneybag: coins.".format(money)
+    m += "\n`=================================`"
+    msg.set_thumbnail(url=convert_img)
+    msg.add_field(name="`=================================`", value=m)
+    await client.say(embed=msg)
+
+''' COMMANDS FOR MANAGERS '''
+# }money <add/del/set> <user> <amount>
+@client.command(pass_context=True)
+async def money(ctx, option = None, user: discord.Member = None, amount = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0x4286f4, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    owner = discord.utils.get(ctx.message.server.roles, name='Owner')
+    manager = discord.utils.get(ctx.message.server.roles, name='Co-Owner')
+    await client.send_typing(ctx.message.channel)
+    if owner in author.roles or manager in author.roles:
+        if option == None or user == None or amount == None:
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`v!money add @Huskie 127`.\n`v!money del @Huskie 127`.\n`v!money set @Huskie 127`.")
+        else:
+            if option == "add" or option == "del" or option == "set":
+                try:
+                    o = []
+                    k = int(amount)
+                    async for i in client.logs_from(chnl, limit=1000000000000):
+                        a = str(i.content)
+                        if user.id in a:
+                            b = i.content.split(' | ')
+                            if option == "add":
+                                bal = int(b[1])
+                                money = bal + int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":gem: ", value="<@{}> added `{}`:moneybag: coins to <@{}>'s balance.".format(author.id, amount, user.id))
+                                o.append("+1")
+                                break
+                            elif option == "del":
+                                bal = int(b[1])
+                                money = bal - int(amount)
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, money, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":gem: ", value="<@{}> removed `{}`:moneybag: coins from <@{}>'s balance.".format(author.id, amount, user.id))
+                                o.append("+1")
+                                break
+                            elif option == "set":
+                                await client.edit_message(i, "{} | {} | **{}**".format(user.id, amount, user.name))
+                                msg.set_thumbnail(url=tools_img)
+                                msg.add_field(name=":gem: ", value="<@{}> set <@{}>'s balance to `{}`:moneybag: coins.".format(author.id, user.id, amount))
+                                o.append("+1")
+                                break
+                            else:
+                                msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
+                                o.append("+1")
+                                break
+                        else:
+                            print("[MONEY] Pass 1")
+                    if len(o) == 0:
+                        msg.add_field(name=error_img, value="That user is not registered in the system.")
+                    else:
+                        print("[MONEY] Pass 2")
+                except:
+                    msg.add_field(name=error_img, value="The amount must be a number.")
+            else:
+                msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`, `set`.")
+    else:
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Co-Owners.")
+    await client.say(embed=msg)
+
+# }reset <perks/money/all> <user>
+@client.command(pass_context=True)
+async def reset(ctx, option = None, user: discord.Member = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    chnl = client.get_channel(users_chnl)
+    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
+    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    await client.send_typing(ctx.message.channel)
+    if owner in author.roles or manager in author.roles:
+        if option == None or user == None:
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}reset perks @Jimmy`.\n`}reset money @Jimmy`.\n`}reset all @Jimmy`.")
+        else:
+            o = []
+            o2 = []
+            chnls = ["470306222961328128",
+                     "464776157171023872",
+                     "463694595209953290",
+                     "463696564028702732",
+                     "463708093952557056"]
+            if option == "money" or option == "all":
+                async for i in client.logs_from(chnl, limit=1000000000000):
+                    a = str(i.content)
+                    if user.id in a:
+                        b = i.content.split(' | ')
+                        await client.edit_message(i, "{} | 0 | **{}**".format(user.id, user.name))
+                        o.append("+1")
+                        break
+                    else:
+                        print("[RESET] Pass 1")
+                if len(o) == 0:
+                    await client.send_message(chnl, "{} | 0 | **{}**".format(user.id, user.name))
+                else:
+                    print("[RESET] Pass 2")
+            else:
+                print("[RESET] Pass 3")
+            if option == "perks" or option == "all":
+                server = client.get_server('463671677658726412')
+                for i in server.channels:
+                    if i.id not in chnls:
+                        c = client.get_channel(i.id)
+                        async for p in client.logs_from(c, limit=1000000000000):
+                            a = str(p.content)
+                            if user.id in a:
+                                await client.delete_message(p)
+                            else:
+                                print("[RESET] Pass 4")
+                    else:
+                        print("[RESET] Pass 5")
+                try:
+                    clocks.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    degrees.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    incognitos.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    securities.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    double_securities.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    lucky_charms.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    bank_accounts.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    credit_cards.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    boosters.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    hacking_tools.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    partnering_badges.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                try:
+                    join_counters.remove(user.id)
+                except:
+                    print("[RESET] Pass")
+                o2.append("+1")
+            else:
+                print("[RESET] Pass 6")
+            if len(o) != 0 and len(o2) != 0:
+                msg.set_thumbnail(url=tools_img)
+                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset all data for <@{}>".format(author.id, user.id))
+            elif len(o) != 0:
+                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset <@{}>'s balance.".format(author.id, user.id))
+                msg.set_thumbnail(url=tools_img)
+            elif len(o2) != 0:
+                msg.set_thumbnail(url=tools_img)
+                msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> reset <@{}>'s perks.".format(author.id, user.id))
+            else:
+                msg.add_field(name=error_img, value="There has been an error while resetting.")
+            if option == "perks" or option == "money" or option == "all":
+                print("[RESET] Pass 7")
+            else:
+                msg.add_field(name=error_img, value="Invalid option!\nOptions: `money`, `perks`, `all`.")
+    else:
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
+    await client.say(embed=msg)
+
+# }csay <text>
+@client.command(pass_context=True)
+async def csay(ctx, *, args = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
+    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    await client.send_typing(ctx.message.channel)
+    if author.id == '412201413335056386':
+        if args == None:
+            msg.add_field(name=error_img, value="No text given.")
+            await client.say(embed=msg)
+        else:
+            await client.say("{}".format(args))
+            await client.delete_message(ctx.message)
+    else:
+        msg.add_field(name=error_img, value="This command can only be used by Zero.")
+        await client.say(embed=msg)
+
+# }perk <add/del> <user> <perk>
+@client.command(pass_context=True)
+async def perk(ctx, option = None, user: discord.Member = None, *, perk = None):
+    author = ctx.message.author
+    msg = discord.Embed(colour=0xFFB900, description= "")
+    msg.title = ""
+    msg.set_footer(text=footer_text)
+    owner = discord.utils.get(ctx.message.server.roles, id=owner_role)
+    manager = discord.utils.get(ctx.message.server.roles, id=manager_role)
+    await client.send_typing(ctx.message.channel)
+    if owner in author.roles or manager in author.roles:
+        if option == None or user == None or perk == None:
+            msg.add_field(name=error_img, value="Not all arguments were given!\nExamples:\n`}perk add @Tom clock`.\n`}perk del @Tom credit card`.")
+        else:
+            prks = ["clock", "credit card", "bank account", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
+            pchnl = {"clock" : clocks_chnl,
+                     "degree" : degrees_chnl,
+                     "incognito" : incognitos_chnl,
+                     "credit card" : credit_cards_chnl,
+                     "bank account" : bank_accounts_chnl,
+                     "security" : securities_chnl,
+                     "double security" : double_securities_chnl,
+                     "hacking tool" : hacking_tools_chnl,
+                     "partnering badge" : partnering_badges_chnl,
+                     "join counter" : join_counters_chnl,
+                     "booster" : boosters_chnl,
+                     "lucky charm" : lucky_charms_chnl}
+            pcheck = {"clock" : clocks,
+                      "degree" : degrees,
+                      "incognito" : incognitos,
+                      "credit card" : credit_cards,
+                      "bank account" : bank_accounts,
+                      "security" : securities,
+                      "double security" : double_securities,
+                      "hacking tool" : hacking_tools,
+                      "partnering badge" : partnering_badges,
+                      "join counter" : join_counters,
+                      "booster" : boosters,
+                      "lucky charm" : lucky_charms}
+            if perk in prks:
+                if option == "add":
+                    o = []
+                    l = pcheck["{}".format(perk)]
+                    if author.id not in l:
+                        c = client.get_channel(pchnl["{}".format(perk)])
+                        await client.send_message(c, author.id)
+                        l.append(author.id)
+                        msg.set_thumbnail(url=tools_img)
+                        msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> added a perk to <@{}>'s perks ({}).".format(author.id, user.id, perk))
+                    else:
+                        msg.add_field(name=error_img, value="<@{}> already has that perk.".format(user.id))
+                elif option == "del":
+                    o = []
+                    c = client.get_channel(pchnl["{}".format(perk)])
+                    async for i in client.logs_from(c):
+                        if i.content == user.id:
+                            await client.delete_message(i)
+                            o.append("+1")
+                            break
+                        else:
+                            print("[PERK] Pass 1")
+                    try:
+                        l = pcheck["{}".format(perk)]
+                        l.remove(author.id)
+                    except:
+                        print("[PERK] Pass 2")
+                    if len(o) == 0:
+                        msg.add_field(name=error_img, value="<@{}> doesn't have that perk.".format(user.id))
+                    else:
+                        msg.set_thumbnail(url=tools_img)
+                        msg.add_field(name="<:xctools:465536207233744898>", value="<@{}> removed one of <@{}>'s perks ({}).".format(author.id, user.id, perk))
+                else:
+                    msg.add_field(name=error_img, value="Invalid option!\nOptions: `add`, `del`.")
+            else:
+                m = ""
+                for i in prks:
+                    m += "\n`{}`.".format(i)
+                msg.add_field(name=error_img, value="Invalid perk!\nList of perks:{}\nThe VIP and Legend role can only be removed manually.".format(m))
+    else:
+        msg.add_field(name=error_img, value="This command can only be used by Owners and Managers.")
     await client.say(embed=msg)
 ##################################
 client.run(os.environ['BOT_TOKEN'])
