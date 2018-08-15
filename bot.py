@@ -351,6 +351,7 @@ async def help(ctx):
     m3 += "\n- v!rate <text>"
     m3 += "\n- v!urban <word>"
     m3 += "\n- v!rainbow"
+    m3 += "\n- v!kill <user>
     m4 = "\n:large_blue_circle: GENERAL :large_blue_circle: "
     m4 += "\n- v!invite"
     m4 += "\n- v!suggest <suggestion>"
@@ -379,6 +380,11 @@ async def help(ctx):
     m6 += "\n- v!purge <number>"
     m6 += "\n- v!warn <user> <reason>"
     m6 += "\n- v!check <user>"
+    m6 += "\n- v!partner <user>"
+    m6 += "\n- v!mute <user> <time> [reason]"
+    m6 += "\n- v!unmute <user>"
+    m6 += "\n- v!take <user> <role>
+    m6 += "\n- v!give <user> <role>
     m6 += "\n- v!money <add/del/set> <user> <amount>"
     m6 += "\n- v!reset <perk/money/all> <user>"
     m6 += "\n- v!say <text>"
