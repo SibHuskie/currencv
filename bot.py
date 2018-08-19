@@ -822,7 +822,7 @@ async def buy(ctx, *, item = None):
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
             elif item == "gods role":
-                if royal in author.roles:
+                if god in author.roles:
                     msg.add_field(name=error_img, value="You already have this perk.")
                 else:
                     if int(bal) >= 1000000000:
@@ -835,7 +835,7 @@ async def buy(ctx, *, item = None):
                                 break
                             else:
                                 print("[BUY] Pass 3")
-                        await client.add_roles(author, royal)
+                        await client.add_roles(author, god)
                         msg.set_thumbnail(url=shop_img)
                         msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :cloud: Gods role for `1000000000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
                     else:
