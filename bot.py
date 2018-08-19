@@ -32,6 +32,7 @@ fishing_chnl = '475551448633966602'
 
 elite_role = '474833213865590785'
 royal_role = '474833205942550569'
+gods_role = '480606814971625473'
 member_role = '464963766027812880'
 helper_role = '464963841588199440'
 mod_role = '464963897871564800'
@@ -57,12 +58,13 @@ hack_img = 'https://i.imgur.com/L2zf68E.png'
 fish_img = 'https://i.imgur.com/ngAJpQU.png'
 convert_img = 'https://i.imgur.com/h5tTzFU.png'
 
-items = ["clock", "credit card", "bank account", "elites role", "royals role", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
+items = ["clock", "credit card", "bank account", "elites role", "royals role", "gods role", "incognito", "degree", "lucky charm", "partnering badge", "join counter", "hacking tool", "security", "double security", "booster"]
 perks = {"clock" : "25000",
          "credit card" : "30000",
          "bank account" : "60000",
          "elites role" : "135000",
          "royals role" : "300000",
+         "gods role" : "1000000000",
          "incognito" : "15000",
          "degree" : "15000",
          "lucky charm" : "25000",
@@ -632,6 +634,7 @@ async def profile(ctx, user: discord.Member = None):
     chnl = client.get_channel(users_chnl)
     elite = discord.utils.get(ctx.message.server.roles, name='Elites')
     royal = discord.utils.get(ctx.message.server.roles, name='Royals')
+    god = discord.utils.get(ctx.message.server.roles, name='Gods')
     await client.send_typing(ctx.message.channel)
     if user == None:
         author = ctx.message.author
@@ -687,6 +690,8 @@ async def profile(ctx, user: discord.Member = None):
         m += ":exclamation: "
     if royal in author.roles:
         m += ":bangbang: "
+    if god in author.roles:
+        m += ":cloud: "
     m += "\n`=================================`"
     msg.set_thumbnail(url=author.avatar_url)
     msg.add_field(name="`=================================`", value=m)
