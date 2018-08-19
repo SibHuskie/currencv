@@ -728,8 +728,9 @@ async def shop(ctx):
     m10 = ":up: Booster **__~~=~~__** 100000 :moneybag: **__~~=~~__** Lets you double half of your money daily."
     m11 = ":exclamation: Elites role **__~~=~~__** 135000 :moneybag: **__~~=~~__** Gives you the Elites role. This role has special perks and special commands."
     m12 = ":bangbang: Royals role **__~~=~~__** 300000 :moneybag: **__~~=~~__** Gives you the Royals role. This role is only for royal people."
-    m13 = ":handshake: Partnering Badge **__~~=~~__** 15000 :moneybag: **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
-    m14 = ":heart: Join Counter **__~~=~~__** 10000 :moneybag: **__~~=~~__** Gives you 50-100 coins every time someone joins."
+    m13 = ":cloud: Gods role **__~~=~~__** 1000000000 :moneybag: **__~~=~~__** Gives you the ability of changing other user's nickname. As well as gaining boosts in working and slots."
+    m14 = ":handshake: Partnering Badge **__~~=~~__** 15000 :moneybag: **__~~=~~__** Gives you 100-300 coins for every partnership you make. Only useful if you are staff."
+    m15 = ":heart: Join Counter **__~~=~~__** 10000 :moneybag: **__~~=~~__** Gives you 50-100 coins every time someone joins."
     msg.add_field(name="`=================================`", value=m1)
     msg.add_field(name="`=================================`", value=m2)
     msg.add_field(name="`=================================`", value=m3)
@@ -743,6 +744,7 @@ async def shop(ctx):
     msg.add_field(name="`=================================`", value=m11)
     msg.add_field(name="`=================================`", value=m12)
     msg.add_field(name="`=================================`", value=m13)
+    msg.add_field(name="`=================================`", value=m14)
     msg.add_field(name="`=================================`", value=m14)
     try:
         await client.send_message(author, embed=msg)
@@ -766,6 +768,7 @@ async def buy(ctx, *, item = None):
     else:
         elite = discord.utils.get(ctx.message.server.roles, name='Elites')
         royal = discord.utils.get(ctx.message.server.roles, name='Royals')
+        god = discord.utils.get(ctx.message.server.roles, name ='Gods')
         chnl = client.get_channel(users_chnl)
         o = []
         async for i in client.logs_from(chnl, limit=1000000000000):
@@ -816,6 +819,25 @@ async def buy(ctx, *, item = None):
                         await client.add_roles(author, royal)
                         msg.set_thumbnail(url=shop_img)
                         msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :bangbang: Royals role for `300000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
+                    else:
+                        msg.add_field(name=error_img, value="You do not have enough coins.")
+            elif item == "gods role":
+                if royal in author.roles:
+                    msg.add_field(name=error_img, value="You already have this perk.")
+                else:
+                    if int(bal) >= 1000000000:
+                        async for i in client.logs_from(chnl, limit=1000000000000):
+                            a = str(i.content)
+                            if author.id in a:
+                                b = i.content.split(' | ')
+                                money = int(bal) - 1000000000
+                                await client.edit_message(i, "{} | {} | **{}**".format(author.id, money, author.name))
+                                break
+                            else:
+                                print("[BUY] Pass 3")
+                        await client.add_roles(author, royal)
+                        msg.set_thumbnail(url=shop_img)
+                        msg.add_field(name=":diamond_shape_with_a_dot_inside:", value="<@{}> successfully bought :cloud: Gods role for `1000000000`:moneybag: coins.\nNew balance: `{}`:moneybag: coins.".format(author.id, money))
                     else:
                         msg.add_field(name=error_img, value="You do not have enough coins.")
             else:
@@ -1040,6 +1062,7 @@ async def convert(ctx):
     chnl = client.get_channel(users_chnl)
     elite = discord.utils.get(ctx.message.server.roles, name='Elites')
     royal = discord.utils.get(ctx.message.server.roles, name='Royals')
+    god = discord.utils.get(ctx.message.server.roles, name='Gods')
     await client.send_typing(ctx.message.channel)
     m = ":recycle: *Converter*"
     m += "\n`=================================`"
@@ -1057,7 +1080,10 @@ async def convert(ctx):
     msgs2 = []
     m += "\n***=***  Converted {} messages into __{}__ coins.".format(msgs, msgs)
     if author.id in credit_cards:
-        if royal in author.roles:
+        if god in author.roles:
+            l = msgs * 5
+            m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
+        elif royal in author.roles:
             l = msgs * 4
             m += "\n-----***=***  Credit card bonus: __{}__ coins.".format(l)
         elif elite in author.roles:
